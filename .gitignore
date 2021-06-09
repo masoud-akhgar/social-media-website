@@ -1,7 +1,3 @@
 # IDEs and editors
 .idea/
 
-#config files
-www/.htaccess
-shares/MySql.config.php
-shares/config.class.php
