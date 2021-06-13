@@ -15,7 +15,6 @@ include('header.inc.php');
         margin-left:auto;
         margin-right:auto;
         margin-top: 20px;
-        direction: rtl
     }
 
     img {
@@ -29,7 +28,6 @@ include('header.inc.php');
 
 </head>
 	<body >
-    <img src="www\sadaf\images\like.png">
    </body>
 <ul>
 <?php
@@ -39,21 +37,29 @@ $res = $mysql->Execute("select * from sadaf.post where userId in
 while($rec = $res->fetch())
 {
     if($rec["image"] != null && $rec["text"] != null){
-        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p><img>".$rec["image"]."</img>".$rec["text"]."
-                <img src='\www\sadaf\images\like.png'><img src='\www\sadaf\images\comment.png'></div>";
+        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p><img>".$rec["image"]."</img>
+                <p style='direction: rtl'>".$rec["text"]."</p>
+                <img src='.\images\like.png' style='margin-left: 10px; margin-top: 190px'> 
+                <img src='.\images\comment.png'style='margin-left: 10px; margin-top: 190px'></div>";
 
     }
 
     if($rec["image"] != null && $rec["text"] == null)
-        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p><img>".$rec["image"]."</img>
-                <img src='\www\sadaf\images\like.png'> <img src='\www\sadaf\images\comment.png'></div>";
+        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p><img>".$rec["image"]."
+                <img src='.\images\like.png' style='margin-left: 10px; margin-top: 190px'> 
+                <img src='.\images\comment.png'style='margin-left: 10px; margin-top: 190px'></div>";
 
     else
-        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p>".$rec["text"]."
-                <img src='\www\sadaf\images\like.png'> <img src='\www\sadaf\images\comment.png'></div>";
+        echo "<div class=\"rcorners\"><p>".$rec["username"]."</p><p style='direction: rtl'>".$rec["text"]."</p>
+                <img src='.\images\like.png' style='margin-left: 10px; margin-top: 190px'> 
+                <img src='.\images\comment.png'style='margin-left: 10px; margin-top: 190px'></div>";
 
 }
 ?>
 
+<?php
+$mysql = pdodb::getInstance();
+$res = $mysql->Execute("select * from sadaf.likes group by postId order by count(*) desc limit 10 ")
+?>
 </ul>
 </html>
