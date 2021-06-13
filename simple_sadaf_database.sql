@@ -206,7 +206,20 @@ INSERT INTO `user` (`username`, `userId`,`pass`, `email`) VALUES
 ('matinkoohjani',4,'matin1234', 'matinkoohjani@gmail.com'),
 ('masudakhgar', 5,'masud1234', 'masudakhgar@gmail.com'),
 ('maryamhokmabadi',6, 'maryam1234', 'maryamhokmabadi@gmail.com'),
-('omid', 7,'omid3000', 'omid@gmail.com');
+('omid', 7, 'omid3000', 'omid@gmail.com'),
+('sarajalali', 8, '123456789', 'sarajalali@gmail.com'),
+('alitalebi', 9, '123456789', 'alitalebi@gmail.com'),
+('mohammad', 10, '123456789', 'moheti@gmail.com'),
+('faridghari', 11, '123456789', 'faridghari@gmail.com'),
+('atefearab', 12, '123456789', 'atefearab@gmail.com'),
+('nazanin_t', 13, '123456789', 'nazanint@gmail.com'),
+('alirezaabdi', 14, '123456789', 'alirezaabdi@gmail.com'),
+('negin43', 15, '123456789', 'negin43@gmail.com'),
+('sogandhashemi', 16, '123456789', 'sogandhashemi@gmail.com'),
+('jenniferaniston', 17, '123456789', 'jenniferaniston@gmail.com'),
+('barackobama', 18, '123456789', 'barackobama@gmail.com'),
+('davidfincher', 19, '123456789', 'davidfincher@gmail.com'),
+('paulwalker', 20, '123456789', 'paulwalker@gmail.com');
 
 
 
@@ -217,7 +230,20 @@ INSERT INTO `profile` (`username`, `userId`,`name`, `bio`, `image`) VALUES
 ('matinkoohjani',4, 'matin', 'hello im matin', ''),
 ('masudakhgar',5, 'masud', 'hello im masud', ''),
 ('maryamhokmabadi', 6,'maryam', 'hello im maryam', ''),
-('omid',7, 'omid', 'hello im omid', '');
+('omid', 7, 'omid3000', 'hello im omid', ''),
+('sarajalali', 8, 'sara', 'hello im sara', ''),
+('alitalebi', 9, 'ali', 'hello im ali', ''),
+('mohammad', 10, 'mohammad', 'hello im mohammad', ''),
+('faridghari', 11, 'farid', 'hello im farid', ''),
+('atefearab', 12, 'atefe', 'hello im atefe', ''),
+('nazanin_t', 13, 'nazanin', 'hello im nazanin', ''),
+('alirezaabdi', 14, 'alireza', 'hello im alireza', ''),
+('negin43', 15, 'negin', 'hello im negin', ''),
+('sogandhashemi', 16, 'sogand', 'hello im sogand', ''),
+('jenniferaniston', 17, 'jennifer', 'hello im an actress', ''),
+('barackobama', 18, 'barack', 'hello im formal president', ''),
+('davidfincher', 19, 'david', 'hello im a director', ''),
+('paulwalker', 20, 'paul', 'hello im dead', '');
 
 
 INSERT INTO `follow` (`followingId`, `followedId`) VALUES
