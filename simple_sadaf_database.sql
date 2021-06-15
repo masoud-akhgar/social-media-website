@@ -138,7 +138,7 @@ CREATE TABLE `sadaf`.`profile` (
                                    `userId` int(15) NOT NULL,
                                    `name` varchar(30)  DEFAULT NULL,
                                    `bio` text DEFAULT NULL ,
-                                   `image` varchar(15)  DEFAULT NULL,
+                                   `image` varchar(40)  DEFAULT '.\profileImg\profile.png',
                                    PRIMARY KEY (`userId`),
                                    FOREIGN KEY (`userId`)
                                        REFERENCES user(`userId`)
@@ -198,7 +198,6 @@ CREATE TABLE `sadaf`.`likes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 
-
 INSERT INTO `user` (`username`, `userId`,`pass`, `email`) VALUES
 ('mahdipasyegane',1 ,'mahdi1234', 'mahdipasyegane@gmail.com'),
 ('mobinapooladi', 2,'mobina1234', 'mobinapooladi@gmail.com'),
@@ -206,47 +205,187 @@ INSERT INTO `user` (`username`, `userId`,`pass`, `email`) VALUES
 ('matinkoohjani',4,'matin1234', 'matinkoohjani@gmail.com'),
 ('masudakhgar', 5,'masud1234', 'masudakhgar@gmail.com'),
 ('maryamhokmabadi',6, 'maryam1234', 'maryamhokmabadi@gmail.com'),
-('omid', 7,'omid3000', 'omid@gmail.com');
+('omid', 7, 'omid3000', 'omid@gmail.com'),
+('sarajalali', 8, '123456789', 'sarajalali@gmail.com'),
+('alitalebi', 9, '123456789', 'alitalebi@gmail.com'),
+('mohammad', 10, '123456789', 'moheti@gmail.com'),
+('faridghari', 11, '123456789', 'faridghari@gmail.com'),
+('atefearab', 12, '123456789', 'atefearab@gmail.com'),
+('nazanin_t', 13, '123456789', 'nazanint@gmail.com'),
+('alirezaabdi', 14, '123456789', 'alirezaabdi@gmail.com'),
+('negin43', 15, '123456789', 'negin43@gmail.com'),
+('sogandhashemi', 16, '123456789', 'sogandhashemi@gmail.com'),
+('jenniferaniston', 17, '123456789', 'jenniferaniston@gmail.com'),
+('barackobama', 18, '123456789', 'barackobama@gmail.com'),
+('davidfincher', 19, '123456789', 'davidfincher@gmail.com'),
+('paulwalker', 20, '123456789', 'paulwalker@gmail.com');
 
 
 
-INSERT INTO `profile` (`username`, `userId`,`name`, `bio`, `image`) VALUES
-('mahdipasyegane',1 ,'mahdi', 'hello im mahdi', ''),
-('mobinapooladi',2, 'mobina', 'hello im mobina', ''),
-('amirroshandel',3, 'amir', 'hello im amir', ''),
-('matinkoohjani',4, 'matin', 'hello im matin', ''),
-('masudakhgar',5, 'masud', 'hello im masud', ''),
-('maryamhokmabadi', 6,'maryam', 'hello im maryam', ''),
-('omid',7, 'omid', 'hello im omid', '');
+INSERT INTO `profile` (`username`, `userId`,`name`, `bio`) VALUES
+('mahdipasyegane',1 ,'mahdi', 'hello im mahdi'),
+('mobinapooladi',2, 'mobina', 'hello im mobina'),
+('amirroshandel',3, 'amir', 'hello im amir'),
+('matinkoohjani',4, 'matin', 'hello im matin'),
+('masudakhgar',5, 'masud', 'hello im masud'),
+('maryamhokmabadi', 6,'maryam', 'hello im maryam'),
+('omid', 7, 'omid3000', 'hello im omid'),
+('sarajalali', 8, 'sara', 'hello im sara'),
+('alitalebi', 9, 'ali', 'hello im ali'),
+('mohammad', 10, 'mohammad', 'hello im mohammad'),
+('faridghari', 11, 'farid', 'hello im farid'),
+('atefearab', 12, 'atefe', 'hello im atefe'),
+('nazanin_t', 13, 'nazanin', 'hello im nazanin'),
+('alirezaabdi', 14, 'alireza', 'hello im alireza'),
+('negin43', 15, 'negin', 'hello im negin'),
+('sogandhashemi', 16, 'sogand', 'hello im sogand'),
+('jenniferaniston', 17, 'jennifer', 'hello im an actress'),
+('barackobama', 18, 'barack', 'hello im formal president'),
+('davidfincher', 19, 'david', 'hello im a director'),
+('paulwalker', 20, 'paul', 'hello im dead');
+
+
+INSERT INTO `likes` (username, userId, postId, status)  VALUES
+('mobinapooladi',2,1,1),
+('mobinapooladi',2,3,1),
+('mobinapooladi',2,4,1),
+('mahdipasyegane',1,4,1),
+('mahdipasyegane',1,3,1),
+('mahdipasyegane',1,2,1),
+('amirroshandel',3,1,1),
+('amirroshandel',3,2,1),
+('amirroshandel',3,4,1),
+('amirroshandel',3,5,1),
+('matinkoohjani',4,1,1),
+('matinkoohjani',4,2,1),
+('matinkoohjani',4,3,1),
+('matinkoohjani',4,5,1),
+('matinkoohjani',4,6,1),
+('masudakhgar',5,1,1),
+('masudakhgar',5,2,1),
+('masudakhgar',5,3,1),
+('masudakhgar',5,4,1),
+('maryamhokmabadi',6,4,1),
+('omid',7,4,1),
+('sarajalali',8,4,1),
+('alitalebi',9,4,1),
+('mohammad',10,4,1),
+('faridghari',11,4,1),
+('atefearab',12,4,1),
+('nazanin_t',13,4,1),
+('alirezaabdi',14,4,1),
+('negin43',15,4,1),
+('sogandhashemi',15,4,1),
+('maryamhokmabadi',6,1,1),
+('omid',7,4,1),
+('sarajalali',8,1,1),
+('alitalebi',9,1,1),
+('mohammad',10,1,1),
+('faridghari',11,1,1),
+('atefearab',12,1,1),
+('nazanin_t',13,1,1),
+('alirezaabdi',14,1,1),
+('negin43',15,1,1),
+('sogandhashemi',15,1,1),
+('maryamhokmabadi',6,2,1),
+('omid',7,2,1),
+('sarajalali',8,2,1),
+('alitalebi',9,2,1),
+('mohammad',10,2,1),
+('faridghari',11,2,1),
+('atefearab',12,2,1),
+('nazanin_t',13,2,1),
+('alirezaabdi',14,2,1),
+('negin43',15,2,1),
+('sogandhashemi',15,2,1),
+('maryamhokmabadi',6,3,1),
+('omid',7,3,1),
+('sarajalali',8,3,1),
+('alitalebi',9,3,1),
+('mohammad',10,3,1),
+('faridghari',11,3,1),
+('atefearab',12,3,1),
+('nazanin_t',13,3,1),
+('alirezaabdi',14,3,1),
+('negin43',15,3,1),
+('sogandhashemi',15,3,1);
+
 
 
 INSERT INTO `follow` (`followingId`, `followedId`) VALUES
 ('2', '1'),
 ('2', '3'),
 ('2', '4'),
+('2', '8'),
+('2', '9'),
+('2', '10'),
+('2', '4'),
 ('1', '4'),
 ('1', '3'),
 ('1', '2'),
+('1', '8'),
+('1', '9'),
+('1', '10'),
 ('3', '1'),
 ('3', '4'),
 ('3', '5'),
 ('3', '2'),
+('3', '8'),
+('3', '9'),
+('3', '10'),
+('4', '1'),
+('4', '2'),
+('4', '3'),
+('4', '4'),
+('4', '6'),
 ('5', '3'),
 ('5', '4'),
+('5', '2'),
+('5', '1'),
+('5', '8'),
+('5', '9'),
+('5', '10'),
 ('6', '4'),
 ('6', '3'),
+('6', '2'),
+('6', '1'),
+('6', '8'),
+('6', '9'),
+('6', '10'),
 ('7', '3'),
-('7', '6');
+('7', '4'),
+('7', '2'),
+('7', '1'),
+('7', '8'),
+('7', '9'),
+('7', '10');
 
 
 INSERT INTO `post` (`username`,`userId`, `postId`, `text`, `image`, `date`) VALUES
-('mahdipasyegane',1, 1, 'سلااااام مهدی ام', '', '2021-06-07'),
-('mobinapooladi', 2,2, 'سلاااام مبینام', '', '2021-06-07'),
-('amirroshandel',3, 3, 'سلاااام امیر ام', '', '2021-06-07'),
-('matinkoohjani',4, 4, 'سلاااام متین ام', '', '2021-06-07'),
-('masudakhgar',5, 5, 'سلاااام مسعود ام', '', '2021-06-07'),
-('maryamhokmabadi',6, 6, 'سلاااام مریم ام', '', '2021-06-07'),
-('omid',7, 7, 'سلاااام امید ام', '', '2021-06-07');
+('mahdipasyegane',1, 1, 'هرکی شعور رو جوری تعریف میکنه که طبق اون تعریف خودش با شعور حساب بشه', '', '2021-06-07'),
+('mobinapooladi', 2,2, 'یکی از بزرگترین مشکلات و معضلات جامعه این است که افراد، تجربیات شخصی خود را به عنوان فکت علمی و قابل تعمیم به همه‌ی جامعه جا می‌زنند!', '', '2021-06-07'),
+('amirroshandel',3, 3, 'زندگیت را خودت می نوازی
+مهم نیست چند نفر مهمان موسیقی زندگیت می شوند.
+فقط خودت تا آخر شنونده خودت خواهی ماند...مهم این است؛  پس خوب بنواز', '', '2021-06-07'),
+('matinkoohjani',4, 4, 'مهم نیست مسلمونی یا مسیحی یا آتئیست
+بعضی وقتها تنها راه اثبات یک قضیه
+قسم خوردن به ابوالفضله
+', '', '2021-06-07'),
+('masudakhgar',5, 5, 'دلم واسه مامانم میسوزه وقتی آهنگای انگلیسی رکیکو حفظم و اون فکر میکنه زبانم عالیه :)))', '', '2021-06-07'),
+('maryamhokmabadi',6, 6, 'باگ حافظه آدم اونجاس که هرجاشو دلت خواست نمیتونی پاک کنی یا تقویتش کنی
+از اون بدتر وقتیه که اون خاطرات خوب زود پاک میشن و خاطرات بد پررنگتر', '', '2021-06-07'),
+('omid',7, 7, 'بعضیا انقد خوشگل و جذابن که برنامم اینه تااخر عمرم ماسک رو صورتم باشه', '', '2021-06-07'),
+('sarajalali',8,8,'عجیبه که عکس زن رو روی آگهی ترحیم نمی‌زنن ولی برای کاندیداتوری رو بیلبورد ۲متر در ۴متر میزنن','','2021-06-14'),
+('sarajalali',8,9,'من در طول روز : بهتره شب زود بخوابم تا فردا سر حال بیدار شم
+بازم من ساعت ۴ صبح : خب حالا میریم که میکس آهنگ پلنگ صورتی و باب اسفنجی رو با رقص اَبرو اجرا کنیم','','2021-06-14'),
+('alitalebi',9,10,'خداروشکر من حتی به صورت شفاهی هم بهم نگفتن تا آخر باهات می‌مونم که بخوام شاکی باشم از کسی، شایدم خدارو نه شکر.','','2021-06-16'),
+('mohammad',10,11,'تو بازیهای مهارتی چون بلد نیستم میبازم، تو بازیهای شانسی هم چون شانس ندارم
+بازی سرنوشت هم که نگم براتون','','2021-06-12'),
+('faridghari',11,12,'این رژهای ۲۴ساعته اصل هم با غذا خوردن پاک میشه، اما خدا نکنه فیکشو بخری :))) فقط اسکاج میتونه به دادت برسه :)))','','2021-06-12'),
+('atefearab',12,13,'وقتی مامانت داره سریال تکراری نگاه میکنه برو ازش بپرس جریان این سریال چیه به احتمال ۹۰ درصد میگه نمیدونم','','2021-06-09'),
+('nazanin_t',13,14,'من با هر نوع خشونت مخالفم؛ ولی اونی که وقتی ظرف میشوری هی ظرف اضافه میکنه رو باید با کفگیر سر برید.','','2021-06-17');
+
+
 
 
 
