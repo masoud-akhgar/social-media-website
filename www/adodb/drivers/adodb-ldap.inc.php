@@ -6,7 +6,7 @@
   the BSD license will take precedence.
   Set tabs to 8.
   
-  Revision 1: (02/25/2005) Updated codebase to include the _inject_bind_options function. This allows
+  Revision 1: (02/25/2005) Updated codebase to includes the _inject_bind_options function. This allows
   users to access the options in the ldap_set_option function appropriately. Most importantly
   LDAP Version 3 is now supported. See the examples for more information. Also fixed some minor
   bugs that surfaced when PHP error levels were set high.

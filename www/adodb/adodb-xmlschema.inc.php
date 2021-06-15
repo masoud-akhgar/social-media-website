@@ -1930,7 +1930,7 @@ class adoSchema {
 	* Extracts an XML schema from an existing database.
 	*
 	* Call this method to create an XML schema string from an existing database.
-	* If the data parameter is set to TRUE, AXMLS will include the data from the database
+	* If the data parameter is set to TRUE, AXMLS will includes the data from the database
 	* in the schema. 
 	*
 	* @param boolean $data Include data in schema dump

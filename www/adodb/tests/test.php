@@ -46,7 +46,7 @@ global $ADODB_EXTENSION;
 	$db = ADONewConnection($conn);
 	$ADODB_EXTENSION = $saved;
 	if (headers_sent()) {
-		print "<p><b>White space detected in adodb-$conn.inc.php or include file...</b></p>";
+		print "<p><b>White space detected in adodb-$conn.inc.php or includes file...</b></p>";
 		//die();
 	}
 }

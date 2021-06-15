@@ -168,7 +168,7 @@ class ADODB_informix72 extends ADOConnection {
 				$fld->name = $rs->fields[0];
 /*  //!eos.
 						$rs->fields[1] is not the correct adodb type
-						$rs->fields[2] is not correct max_length, because can include not-null bit
+						$rs->fields[2] is not correct max_length, because can includes not-null bit
 
 				$fld->type = $rs->fields[1];
 				$fld->primary_key=$rspkey->fields && array_search($rs->fields[4],$rspkey->fields); //Added to set primary key flag

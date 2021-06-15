@@ -8602,7 +8602,7 @@
 	     *
 	     * @static
 	     * @memberOf _
-	     * @alias contains, include
+	     * @alias contains, includes
 	     * @category Collection
 	     * @param {Array|Object|string} collection The collection to search.
 	     * @param {*} target The value to search for.
@@ -17362,7 +17362,7 @@
 
 	// auguments BCH(p+q,q) code to the polynomial over GF(2), given the proper
 	// genpoly. the both input and output are in binary numbers, and unlike
-	// calculateecc genpoly should include the 1 bit for the highest degree.
+	// calculateecc genpoly should includes the 1 bit for the highest degree.
 	//
 	// actual polynomials used for this procedure are as follows:
 	// - p=10, q=5, genpoly=x^10+x^8+x^5+x^4+x^2+x+1 (JIS X 0510:2004 Appendix C)
@@ -31653,7 +31653,7 @@
 	    n++;
 	    bl_count[8]++;
 	  }
-	  /* Codes 286 and 287 do not exist, but we must include them in the
+	  /* Codes 286 and 287 do not exist, but we must includes them in the
 	   * tree construction to get a canonical Huffman tree (longest code
 	   * all ones)
 	   */
@@ -32094,7 +32094,7 @@
 	      break;
 	    }
 	  }
-	  /* Update opt_len to include the bit length tree and counts */
+	  /* Update opt_len to includes the bit length tree and counts */
 	  s.opt_len += 3*(max_blindex+1) + 5+5+4;
 	  //Tracev((stderr, "\ndyn trees: dyn %ld, stat %ld",
 	  //        s->opt_len, s->static_len));
@@ -66931,7 +66931,7 @@ window.pdfMake = window.pdfMake || {}; window.pdfMake.vfs = {"LICENSE.txt":"DQog
 		var test = n.find('.test');
 	
 		// IE6/7 will oversize a width 100% element inside a scrolling element, to
-		// include the width of the scrollbar, while other browsers ensure the inner
+		// includes the width of the scrollbar, while other browsers ensure the inner
 		// element is contained without forcing scrolling
 		browser.bScrollOversize = test[0].offsetWidth === 100;
 	
@@ -68260,7 +68260,7 @@ window.pdfMake = window.pdfMake || {}; window.pdfMake.vfs = {"LICENSE.txt":"DQog
 	 * already a cell in that position.
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param array {objects} aoSource Layout array from _fnDetectHeader
-	 *  @param {boolean} [bIncludeHidden=false] If true then include the hidden columns in the calc,
+	 *  @param {boolean} [bIncludeHidden=false] If true then includes the hidden columns in the calc,
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnDrawHead( oSettings, aoSource, bIncludeHidden )
@@ -70272,7 +70272,7 @@ window.pdfMake = window.pdfMake || {}; window.pdfMake.vfs = {"LICENSE.txt":"DQog
 			// No x scrolling
 			tableStyle.width = "100%";
 	
-			// IE7 will make the width of the table when 100% include the scrollbar
+			// IE7 will make the width of the table when 100% includes the scrollbar
 			// - which is shouldn't. When there is a scrollbar we need to take this
 			// into account.
 			if ( ie67 && (table.find('tbody').height() > divBodyEl.offsetHeight ||
@@ -86961,7 +86961,7 @@ var factory = function( $, DataTable ) {
  * fix the left most column in place. This plug-in for DataTables provides
  * exactly this option (note for non-scrolling tables, please use the
  * FixedHeader plug-in, which can fix headers, footers and columns). Key
- * features include:
+ * features includes:
  *
  * * Freezes the left or right most columns to the side of the table
  * * Option to freeze two or more columns
@@ -91263,7 +91263,7 @@ var factory = function( $, DataTable ) {
  * table you want to have this feature enabled on. Note that the 'S' must come
  * AFTER the 't' parameter in `dom`.
  *
- * Key features include:
+ * Key features includes:
  *   <ul class="limit_length">
  *     <li>Speed! The aim of Scroller for DataTables is to make rendering large data sets fast</li>
  *     <li>Full compatibility with deferred rendering in DataTables for maximum speed</li>
@@ -92342,7 +92342,7 @@ Scroller.defaults = /** @lends Scroller.defaults */{
 
 	/**
 	 * Show (or not) the loading element in the background of the table. Note that you should
-	 * include the dataTables.scroller.css file for this to be displayed correctly.
+	 * includes the dataTables.scroller.css file for this to be displayed correctly.
 	 *  @type     boolean
 	 *  @default  false
 	 *  @static

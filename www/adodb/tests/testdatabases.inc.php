@@ -49,7 +49,7 @@ if ($ADODB_FETCH_MODE != ADODB_FETCH_DEFAULT) print "<h3>FETCH MODE IS NOT ADODB
 
 if (isset($nocountrecs)) $ADODB_COUNTRECS = false;
 
-// cannot test databases below, but we include them anyway to check
+// cannot test databases below, but we includes them anyway to check
 // if they parse ok...
 
 if (sizeof($_GET) || !isset($_SERVER['HTTP_HOST'])) {

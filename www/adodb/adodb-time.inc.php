@@ -230,7 +230,7 @@ NOTES
 Useful url for generating test timestamps:
 	http://www.4webhelp.net/us/timestamp.php
 
-Possible future optimizations include 
+Possible future optimizations includes
 
 a. Using an algorithm similar to Plauger's in "The Standard C Library" 
 (page 428, xttotm.c _Ttotm() function). Plauger's algorithm will not 
@@ -292,7 +292,7 @@ This brings it more in line with mktime (still not identical).
 - 23 June 2004 0.14
 
 Allow you to define your own daylights savings function, adodb_daylight_sv.
-If the function is defined (somewhere in an include), then you can correct for daylights savings.
+If the function is defined (somewhere in an includes), then you can correct for daylights savings.
 
 In this example, we apply daylights savings in June or July, adding one hour. This is extremely
 unrealistic as it does not take into account time-zone, geographic location, current year.

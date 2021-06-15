@@ -18,9 +18,9 @@ wrapper library.
  Example
  =======
  
-	include('adodb.inc.php');
+	includes('adodb.inc.php');
 	#---------------------------------#
-	include('adodb-cryptsession.php'); 
+	includes('adodb-cryptsession.php');
 	#---------------------------------#
 	session_start();
 	session_register('AVAR');

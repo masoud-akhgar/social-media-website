@@ -15,8 +15,8 @@
  Example
  =======
  
-	include('adodb.inc.php');
-	include('adodb-session.php');
+	includes('adodb.inc.php');
+	includes('adodb-session.php');
 	session_start();
 	session_register('AVAR');
 	$_SESSION['AVAR'] += 1;
@@ -25,8 +25,8 @@
 	
 To force non-persistent connections, call adodb_session_open first before session_start():
 
-	include('adodb.inc.php');
-	include('adodb-session.php');
+	includes('adodb.inc.php');
+	includes('adodb-session.php');
 	adodb_session_open(false,false,false);
 	session_start();
 	session_register('AVAR');

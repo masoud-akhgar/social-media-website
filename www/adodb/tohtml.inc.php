@@ -28,7 +28,7 @@ $gSQLBlockRows=20; // max no of rows per table block
 // $zheaderarray: contains the replacement strings for the headers (optional)
 //
 //  USAGE:
-//	include('adodb.inc.php');
+//	includes('adodb.inc.php');
 //	$db = ADONewConnection('mysql');
 //	$db->Connect('mysql','userid','password','database');
 //	$rs = $db->Execute('select col1,col2,col3 from table');
