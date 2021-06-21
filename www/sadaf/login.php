@@ -23,15 +23,15 @@ if(isset($_REQUEST["UserID"]))
     $mysql = pdodb::getInstance();
     $mysql->Prepare("select * from sadaf.user where username=? and pass=?");
 
-    $res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], $_REQUEST["UserPassword"]));
+    $res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], md5($_REQUEST["UserPassword"])));
 
     if($trec = $res->fetch())
     {
         session_start();
-        $_SESSION["UserID"] = $trec["UserID"];
+        $_SESSION["UserID"] = $trec["username"];
         $_SESSION["SystemCode"] = 0;
-        $_SESSION["PersonID"] = $trec["PersonID"];
-        $_SESSION["UserName"] = $trec["pfname"]." ".$trec["plname"];
+//        $_SESSION["PersonID"] = $trec["PersonID"];
+        $_SESSION["UserName"] = $_SESSION["UserID"];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
