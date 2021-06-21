@@ -32,9 +32,9 @@ $username = "";
 $password = "";
 $password_repeat = "";
 $email = "";
-$cardNo = "";
+//$cardNo = "";
 $pfname = "";
-$plname = "";
+//$plname = "";
 $validation = true;
 $OTP = null;
 
@@ -46,8 +46,8 @@ if(isset($_REQUEST["submit"]))
     $password_repeat = $_REQUEST["UserPasswordRepeat"];
     $email = $_REQUEST["UserEmail"];
     $pfname = $_REQUEST["pfname"];
-    $plname = $_REQUEST["plname"];
-    $cardNo = $_REQUEST["UserCardNo"];
+//    $plname = $_REQUEST["plname"];
+//    $cardNo = $_REQUEST["UserCardNo"];
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message_array[0] = "فرمت ایمیل نادرست است";
@@ -69,8 +69,7 @@ if(isset($_REQUEST["submit"]))
         $validation = false;
     }
 
-    $mysql->Prepare("Select UserID,UserEmail from sadaf.AccountSpecs
-						    where UserID = ? OR UserEmail = ?");
+    $mysql->Prepare("Select username, email from sadaf.user where username = ? OR email = ?");
     $res = $mysql->ExecuteStatement(array($username,$email));
 
     if($trec = $res->fetch())
@@ -90,32 +89,33 @@ if(isset($_REQUEST["submit"]))
 
         $mysql = pdodb::getInstance();
 
-        $mysql->Prepare("Insert into sadaf.Persons
-						    (pfname, plname, CardNumber) values (?, ?, ?)");
-        $res = $mysql->ExecuteStatement(array($pfname, $plname, $cardNo));
+        $mysql->Prepare("Insert into sadaf.profile
+						    (username, name, bio) values (?, ?, ?)");
+        $res = $mysql->ExecuteStatement(array($username, $pfname, "hello i'm ".$pfname));
 
-        $mysql->Prepare("Select PersonID from sadaf.Persons
-						    where pfname=? and plname=?");
-        $res = $mysql->ExecuteStatement(array($pfname, $plname));
+        $mysql->Prepare("Select userid from sadaf.profile
+						    where name=? and username=?");
+        $res = $mysql->ExecuteStatement(array($pfname, $username));
+
+
 
         if($trec = $res->fetch())
         {
             $password_hashed = md5($password);
 
-            date_default_timezone_set("Asia/Tehran");
-            $date = date('Y/m/d h:i:s', time());
+//            date_default_timezone_set("Asia/Tehran");
+//            $date = date('Y/m/d h:i:s', time());
 
-            $mysql->Prepare("Insert into sadaf.AccountSpecs
-						    (UserID, UserPassword, PersonID, UserEmail, StartDate, Status) values (?, ?, ?, ?, ?, 'InProgress')");
-            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $trec["PersonID"], $email, $date));
-
+            $mysql->Prepare("Insert into sadaf.user (username, pass, email) values (?, ?, ?)");
+            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $email));
+            echo "sssss";
         }
 
         $_SESSION["UserID"] = $username;
         $_SESSION["UserEmail"] = $email;
-
-        echo "<script>document.location='EmailAuthentication.php';</script>";
-        send_email($email);
+        header("Location: login.php");
+//        echo "<script>document.location='EmailAuthentication.php';</script>";
+//        send_email($email);
         die();
     }
 }
@@ -126,7 +126,8 @@ function erase_val(&$myarr) {
 
 function send_email($email_address){
 
-    $OTP = rand (1000000 , 9999999);
+//    $OTP = rand (1000000 , 9999999);
+    $OTP = 1;
     $_SESSION["OTP"] = $OTP;
     $to = $email_address;
     $subject = "Sadaf system activation code";
@@ -172,28 +173,24 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
                     <table class="table">
                         <tr>
                             <td>نام</td>
-                            <td><input type=text name=pfname id=pfname class="form-control" value=<?php
+                            <td><input type=text name=pfname id=pfname class="form-control" value= <?php
                                 echo $pfname;
                                 ?>></td>
                         </tr>
                         <tr>
-                            <td>نام خانوادگی</td>
-                            <td><input type=text name=plname id=plname class="form-control" value=<?php
-                                echo $plname;
-                                ?>></td>
-                        </tr>
+<!--                            <td>نام خانوادگی</td>-->
+<!--                            <td><input type=text name=plname id=plname class="form-control" ></td>-->
+<!--                        </tr>-->
                         <tr>
                             <td>نام کاربری</td>
                             <td><input type=text name=UserID id=UserID class="form-control" value=<?php
                                 echo $username;
                                 ?>></td>
                         </tr>
-                        <tr>
-                            <td>شماره کارت</td>
-                            <td><input type=text name=UserCardNo id=UserCardNo class="form-control" value=<?php
-                                echo $cardNo;
-                                ?>></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>شماره کارت</td>-->
+<!--                            <td><input type=text name=UserCardNo id=UserCardNo class="form-control" </td>-->
+<!--                        </tr>-->
                         <tr>
                             <td>کلمه رمز</td>
                             <td><input type=password name=UserPassword id=UserPassword class="form-control" placeholder="حداقل 8 کاراکتر شامل عدد و حروف بزرگ و کوچک انگليسی" <?php
