@@ -3,6 +3,33 @@ session_start();
 ?>
 
 <!doctype html>
+<head>
+    <title>Login V15</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <!--===============================================================================================-->
+</head>
 <!-- Programmer: Omid MilaniFard -->
 <?php
 include "sys_config.class.php";
@@ -10,7 +37,6 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-HTMLBegin();
 $username = $_SESSION["UserID"];
 $_SESSION["UserID"] = null;
 
@@ -24,13 +50,11 @@ if(isset($_REQUEST["UserID"]))
     $mysql->Prepare("select * from sadaf.user where username=? and pass=?");
 
     $res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], md5($_REQUEST["UserPassword"])));
-
     if($trec = $res->fetch())
     {
         session_start();
         $_SESSION["UserID"] = $trec["username"];
         $_SESSION["SystemCode"] = 0;
-//        $_SESSION["PersonID"] = $trec["PersonID"];
         $_SESSION["UserName"] = $_SESSION["UserID"];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
@@ -43,9 +67,7 @@ if(isset($_REQUEST["UserID"]))
         $message = "نام کاربر یا کلمه عبور نادرست است";
 }
 ?>
-
-<body >
-<form method=post>
+<body>
 
     <div class="container-fluid">
         <? if($message!="") { ?>
@@ -58,49 +80,78 @@ if(isset($_REQUEST["UserID"]))
         </div>
     </div>
     <? } ?>
-    <div class="row">
-        <div class="col-3" ></div>
-        <div class="col-6" >
-            <br>
-            <div class="portlet box green">
-                <div class="portlet-title">
-                    <div class="caption">
-                        چارچوب توسعه نرم افزار سدف
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
+                        <span class="login100-form-title-1">
+                            Log In
+                        </span>
+                </div>
+
+                <form class="login100-form validate-form">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                        <span class="label-input100">Username</span>
+                        <input class="input100" type="text" name="UserID" id="UserID" placeholder="Enter username" value=<?php echo $_SESSION["UserID"];
+                        $_SESSION["UserID"] = null; ?>>
+                        <span class="focus-input100"></span>
                     </div>
-                </div>
-                <div class="portlet-body">
-                    <table class="table">
-                        <tr>
-                            <td>نام کاربری</td>
-                            <td><input type=text name=UserID id=UserID class="form-control" value=<?php echo $_SESSION["UserID"];
-                                $_SESSION["UserID"] = null; ?>></td>
-                        </tr>
-                        <tr>
-                            <td>کلمه رمز</td>
-                            <td><input type=password id=UserPassword name=UserPassword class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td colspan=2 align=center>
-                                <button type="submit" class="btn btn-primary active">ورود</button>
-                            </td>
-                        </tr>
-                    </table>
 
-                    <!-- redirect to password reset page -->
-                    <?php
-                    if(isset($_GET["newpwd"])){
-                        if($_GET["newpwd"] == "passwordupdated"){
-                            echo "<p class=''>Your password has been reset!</p>";
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="UserPassword" id="UserPassword" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <!-- redirect to password reset page -->
+                        <?php
+                        if(isset($_GET["newpwd"])){
+                            if($_GET["newpwd"] == "passwordupdated"){
+                                echo "<p class=''>Your password has been reset!</p>";
+                            }
                         }
-                    }
-                    ?>
-                    <a href="forgottenpwd/reset-password.php">Forgot your password?</a>
-                </div>
+                        ?>
+                        <div>
+                            <a href="forgottenpwd/reset-password.php" class="txt1">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </div>
 
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="col-3" ></div>
         </div>
+    </div>
 
-</form>
-</div>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/bootstrap/js/popper.js"></script>
+    <script src="loginStyle/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/daterangepicker/moment.min.js"></script>
+    <script src="loginStyle/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="loginStyle/js/main.js"></script>
+
 </body>
