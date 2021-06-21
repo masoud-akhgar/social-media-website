@@ -4,7 +4,7 @@ session_start();
 
 <!doctype html>
 <head>
-    <title>Login V15</title>
+    <title>Login SOSO</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -105,12 +105,6 @@ if(isset($_REQUEST["UserID"]))
                     </div>
 
                     <div class="flex-sb-m w-full p-b-30">
-                        <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                            <label class="label-checkbox100" for="ckb1">
-                                Remember me
-                            </label>
-                        </div>
 
                         <!-- redirect to password reset page -->
                         <?php
@@ -126,11 +120,17 @@ if(isset($_REQUEST["UserID"]))
                             </a>
                         </div>
                     </div>
-
-                    <div class="container-login100-form-btn">
-                        <button type="submit" class="login100-form-btn">
-                            Login
-                        </button>
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="container-login100-form-btn">
+                            <button type="submit" class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <a href="signup.php" class="login100-form-btn">
+                                Signup
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>
