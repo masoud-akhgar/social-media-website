@@ -131,7 +131,7 @@ if(isset($_REQUEST["submit"]))
 //            $date = date('Y/m/d h:i:s', time());
 
             $mysql->Prepare("Insert into sadaf.user (username, pass, email) values (?, ?, ?)");
-            $res = $mysql->ExecuteStatement(array($username, $password_hashed, $email));
+            $res = $mysql->ExecuteStatement(array($username, $password, $email));
             echo "sssss";
         }
 
@@ -207,7 +207,7 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 
                 <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
                     <span class="label-input100">Password</span>
-                    <input class="input100" type="password" name="UserPassword" id="UserPassword" placeholder="Enter password" <?php
+                    <input class="input100" type="password" name="UserPassword" id="UserPassword" placeholder="Enter password" value=<?php
                     echo $password;
                     ?>>
                     <span class="focus-input100"></span>

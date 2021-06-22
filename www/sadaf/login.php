@@ -49,7 +49,7 @@ if(isset($_REQUEST["UserID"]))
     $mysql = pdodb::getInstance();
     $mysql->Prepare("select * from sadaf.user where username=? and pass=?");
 
-    $res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], md5($_REQUEST["UserPassword"])));
+    $res = $mysql->ExecuteStatement(array($_REQUEST["UserID"], ($_REQUEST["UserPassword"])));
     if($trec = $res->fetch())
     {
         session_start();
