@@ -25,10 +25,8 @@
     <link rel="stylesheet" type="text/css" href="../loginStyle/css/main.css">
     <!--===============================================================================================-->
 </head>
-<?php
-include "header.php";
-?>
-    <body>
+
+<body>
 
     <div class="limiter">
         <div class="container-login100">
@@ -38,10 +36,10 @@ include "header.php";
                             Reset password
                         </span>
                 </div>
-                <form class="login100-form validate-form" method="post">
+                <form action="includes/reset-request.inc.php" class="login100-form validate-form" method="post">
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                         <span class="label-input100">Email</span>
-                        <input class="input100" type="text" name="email" id="email" placeholder="Enter your e-mail address...">
+                        <label for="email"></label><input class="input100" type="text" name="email" id="email" placeholder="Enter your e-mail address...">
                         <span class="focus-input100"></span>
                     </div>
 
@@ -84,8 +82,4 @@ include "header.php";
     <!--===============================================================================================-->
     <script src="../loginStyle/js/main.js"></script>
 
-    </body>
-
-<?php
-include "footer.php";
-?>
+</body>
