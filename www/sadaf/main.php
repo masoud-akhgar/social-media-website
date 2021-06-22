@@ -71,8 +71,8 @@ include('header.inc.php');
     }
 
     .collapsible {
-        background-color: #b4aac6;
-        color: black;
+        background-color: #007CC7;
+        color: white;
         cursor: pointer;
         padding: 18px;
         width: 100%;
@@ -98,13 +98,13 @@ include('header.inc.php');
         height: 200px;
         margin-left: 100px;
         margin-top: 20px;
-        border-radius: 6px
+        border-radius: 6px;
     }
 
 </style>
 
 
-<body style="background-color: azure;">
+<body style="background-color: #DADED4;">
 
     <!--search box-->
     <div style="position:relative">
@@ -159,7 +159,7 @@ include('header.inc.php');
             $res = $mysql->Execute("select * from sadaf.profile where userId= 2");
             while($rec = $res->fetch()) {
                 echo "<div style='position:relative'>
-                       <div style='float:left; margin-right: 5px'><img src=". $rec["profileimage"] ."></div> 
+                       <div style='float:left; margin-right: 5px;'><img src=". $rec["profileimage"] ."></div> 
                        <div style= 'float:left; margin-top: 10px' ><b>"."@". $rec['username'] ."<b></div>
                     </div>";
             }
@@ -199,7 +199,7 @@ include('header.inc.php');
                 {
                     echo "<div class=\"rcorners\">
                             <div style='position:relative' >
-                                 <img src=".$rec["profileimage"]." style='float: left;'>
+                                 <img src=".$rec["profileimage"]." style='float: left;border-radius: 20px'>
                                  <p>"."@". $rec['username'] ."</p>
                             </div>
                             <p style='direction: rtl'>".$rec["text"]."</p>
@@ -215,7 +215,7 @@ include('header.inc.php');
                 if($rec["image"] != null && $rec["text"] == null)
                     echo "<div class=\"rcorners\">
                             <div style='position:relative' >
-                                 <img src=".$rec["profileimage"]." style='float: left;'>
+                                 <img src=".$rec["profileimage"]." style='float: left;border-radius: 20px'>
                                  <p >"."@". $rec['username'] ."</p>
                             </div>
                             <div>
@@ -227,7 +227,7 @@ include('header.inc.php');
                 if($rec["image"] == null && $rec["text"] != null)
                     echo "<div class=\"rcorners\">
                             <div style='position:relative' >
-                                 <img src=".$rec["profileimage"]." style='float: left;'>
+                                 <img src=".$rec["profileimage"]." style='float: left;border-radius: 20px'>
                                  <p>"."@". $rec['username'] ."</p>
                             </div>
                            <br>
