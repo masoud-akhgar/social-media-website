@@ -1,116 +1,151 @@
-<!doctype html>
-<!--- programmer: Omid MilaniFard --->
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet"  href="css/lab.css" type="text/css">	
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <title></title>
-  </head>
 <?php
-	include "header.inc.php";
-	include "PAS_shared_utils.php";
-	$mysql = pdodb::getInstance();
+include('header.inc.php');
+$mysql = pdodb::getInstance();
+
+$mysql->Prepare("select * from sadaf.post where postId= ? ");
+$res = $mysql->ExecuteStatement(array($_GET['post']));
+
+
+$mysql->Prepare("select * from sadaf.comment, sadaf.profile where 
+                                    sadaf.profile.userId=sadaf.comment.userId and postId=?");
+$res1 = $mysql->ExecuteStatement(array($_GET['post']));
+    ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" type="" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+
+
+
+
+
+<body style="background-color: azure;">
+<header>
+    <div class="bg-primary-light shadow-bottom">
+        <div class="container d-flex header">
+            <div class="logo col-2">
+                <p class="mt-3 text-white">Our Social Network !</p>
+            </div>
+            <div class="asset col-5 text-left">
+                <ul class="nav d-flex">
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white "> <img class="profile-header" src="asset/images/home.png" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-left col-7">
+                <ul class="nav d-flex">
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/plus.png" alt=""></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link text-white">
+                            <?
+                            $userid = $_SESSION['UserID'];
+                            $userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
+                            $user = $userProfile->fetch();
+                            ?>
+                            <div class="d-flex"><img class="profile-header" src="<?echo $user['profileimage']?>">
+                                <p class="mt-2 ml-1 text-white"> <?echo $_SESSION['username']?></p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-white"><img src="asset/images/icons8-menu-vertical-50.png" class="w-50 mt-2"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+    <?php include("right_side.php"); ?>
+<?
+$userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
+$rec = $userProfile->fetch();
 ?>
-<style>
-</style>
-<body style="background: #34495e">
-<div class="container-fluid">
+<div class="profile2">
+    <div class="profile2-content">
+        <div class="content-middle">
+            <div class="content-md-left">
+                <img src="<?echo $rec["profileimage"]?>">
+            </div>
+            <div class="content-md-middle">
+                <div class="post-title-name">
+                    <a href="">Daniel Jack</a><br>
+                </div>
+                <div class="post-title-time">
+                    <a href="">Saturday 13:52</a>
+                </div>
+                <div class="post-desc">
+                    <?echo $res->fetch()['text'];?>
+                    <br>
+                    <img src="asset/images/Computer.jpg" class="w-100">
+                </div>
+                <div class="mt-3 bg-white w-100 px-2 py-2 shadow-bottom post pl-4">
+                    <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
+                    <div class="w-100">
+                        <div class=" kadr w-100 d-flex post-detail">
+                            <p class="text-rights detail like">
+                                <a href=""><i class="fa fa-thumbs-up"></i> LIKE</a>
+                            </p>
+                            <p class="text-right detail">
+                                <a href=""><i class="fa fa-comments"></i> COMMENT</a>
+                            </p>
+                            <p class="text-right detail">
+                                <a href=""><i class="fa fa-share"></i> SHARE</a>
+                            </p>
+                        </div>
+                    </div>
 
-<div class="row text-white sfont">
-	<div class="col-md-12">
-	<?php echo PASUtils::GetCurrentDateShamsiName(); ?>
-	<i class="fa fa-calendar"></i>
-	</div>
-</div>
-<div class="row text-white sfont">
-	<div class="col-md-12">
-	<b><?php  echo $_SESSION["UserName"] ?></b> <i class="fa fa-user"></i> 
-	</div>
-</div>
-<div class="row text-white sfont">
-	<div class="col-md-12">
-			<a href='#' data-toggle="tooltip" title="تغییر رمز عبور" onclick='javascript: parent.document.getElementById("MainContent").src="ChangePassword.php"'>
-			<i class="fa fa-key text-white p-2" ></i>
-			</a>
-			<a href='#' data-toggle="tooltip" title="کارهایی که انجام دادم" onclick='javascript: parent.document.getElementById("MainContent").src="MyActions.php"'>
-			<i class="fa fa-list text-white p-2" ></i>
-			<a href='javascript: parent.document.location="SignOut.php?logout=1"' data-toggle="tooltip" title="خروج" >
-			<i class="fa fa-sign-out text-white p-2" ></i>
-			</a>
-	</div>
-</div>
-
-<div class="row mb-1">
-	<div class="col align-center">
-		<div class="panel-group" id="accordion" align="center">
-		<?php 
-			$gres = $mysql->Execute("select * from sadaf.SystemFacilityGroups order by OrderNo");
-			while($grec = $gres->fetch())
-			{ 
-		 ?>
-			<div class="panel-heading  mb-1">
-				<button type="button" class="MenuColor" data-toggle="collapse" data-parent="#accordion" href="#collapse<? echo $grec["GroupID"]  ?>">
-				<?php echo $grec["GroupName"]; ?>
-				<span class="caret"></span>
-				</button>
-			</div>
-			<div id="collapse<? echo $grec["GroupID"]  ?>" class="panel-collapse collapse in mb-1">
-				<div class="panel-body">
-					<div class="list-group">
-					<?php 
-						$res = $mysql->Execute("select * from sadaf.SystemFacilities JOIN sadaf.UserFacilities using (FacilityID) where UserID='".$_SESSION["UserID"]."' and GroupID=".$grec["GroupID"]." order by OrderNo");
-						
-						while($rec = $res->fetch())
-						{
-							echo "<button type=\"button\" ";
-							echo " class=\"list-group-item list-group-item-action\" onclick='javascript: parent.document.getElementById(\"MainContent\").src=\"".$rec["PageAddress"]."\"'>";
-							echo $rec["FacilityName"]."</button>";
-						}
-					?>
-					</div>
-				</div>
-			</div>
-			
-		<?php } ?>
-		</div>
-
-		</div>
-	</div>
-</div>
-<script>
-
-
-	function ColapseAll()
-	{
-	  <?
-	    $gres = $mysql->Execute("select * from sadaf.SystemFacilityGroups order by OrderNo");
-	    while($grec = $gres->fetch())
-	    { 
-	      echo "document.getElementById('tr_".$grec["GroupID"]."').style.display = 'none';\r\n";
-	    }
-	  ?>
-	}
-	
-	function ExpandOrColapse(tr_id)
-	{
-	  ColapseAll();
-		if(document.getElementById(tr_id).style.display=='')
-			document.getElementById(tr_id).style.display = 'none';
-		else
-			document.getElementById(tr_id).style.display = '';
-	}
-	
-	$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
+                    <div class="bg-gray comment p-3 shadow-bottom shadow-left w-100">
+                        <div class="d-flex w-100">
+                            <img src="<?echo $rec["profileimage"]?>">
+                            <input type="text " class="comment-holder ml-3 col-10 mr-1" placeholder="Write a Comment and press enter">
+                            <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
+                            <!-- <img class="ml-2" src="asset/images/plus.png"> -->
+                        </div>
+                    </div>
+                </div>
+                <?
+                while ($row = $res1->fetch()) {
+                ?>
+                <div class="mt-3 w-100  py-2 post" >
+                    <hr>
+                    <div class="bg-gray comment p-3 w-100">
+                        <div class="d-flex">
+                            <img id="profile-post" class="shadow-bottom" src=<?echo $row["profileimage"]?>>
+                            <div class="ml-2">
+                                <p class="mt-1" style="font-weight: bold"><?echo $row['name']?></p>
+                                <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $row['username']?></p>
+                            </div>
+                        </div>
+                        <p><?echo $row['comment']?> </p>
+                    </div>
+                </div>
+                <?}?>
+            </div>
+        </div>
+    </div>
+</div><br><br><br><br>
 </body>
+
+</html>

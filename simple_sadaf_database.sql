@@ -137,7 +137,7 @@ CREATE TABLE sadaf.profile (
                                userId int(15) NOT NULL,
                                name varchar(30)  DEFAULT NULL,
                                bio text DEFAULT NULL ,
-                               profileimage varchar(40)  DEFAULT './profileImg/profile.png',
+                               image varchar(40)  DEFAULT '.\profileImg\profile.png',
                                PRIMARY KEY (userId),
                                FOREIGN KEY (userId)
                                    REFERENCES user(userId)
@@ -358,7 +358,7 @@ INSERT INTO follow (followingId, followedId) VALUES
 
 
 INSERT INTO post (username,userId, postId, text, image, date) VALUES
-('mahdipasyegane',1, 1, 'هرکی شعور رو جوری تعریف میکنه که طبق اون تعریف خودش با شعور حساب بشه', '1.jpeg', '2021-06-07'),
+('mahdipasyegane',1, 1, 'هرکی شعور رو جوری تعریف میکنه که طبق اون تعریف خودش با شعور حساب بشه', '', '2021-06-07'),
 ('mobinapooladi', 2,2, 'یکی از بزرگترین مشکلات و معضلات جامعه این است که افراد، تجربیات شخصی خود را به عنوان فکت علمی و قابل تعمیم به همه‌ی جامعه جا می‌زنند!', '', '2021-06-07'),
 ('amirroshandel',3, 3, 'زندگیت را خودت می نوازی
 مهم نیست چند نفر مهمان موسیقی زندگیت می شوند.
@@ -423,7 +423,7 @@ BEGIN
 
     if  (year(_edate) < 1900  or year(_edate) > 2100  )  or (month(_edate) <1  or month(_edate)  > 12 )   or  (day(_edate) < 1 or day(_edate) > 31 )  then
         return 'date-error';
-    end if;
+end if;
 
     set g_day_no = 365 * gy + floor((gy+3) /  4) - floor((gy+99) / 100) + floor((gy+399)/ 400);
 
@@ -431,10 +431,10 @@ BEGIN
     while i < gm do
             set g_day_no=g_day_no+(select  emon from EMonArray  where _id=i+1);
             set i = i + 1;
-        end while;
+end while;
     if  gm >1  and ((gy % 4 =0 and gy % 100 !=0)  or  (gy%400=0))   then
         set g_day_no = g_day_no + 1 ;
-    end if;
+end if;
     set  g_day_no = g_day_no + gd;
     set  j_day_no =  g_day_no-79;
     set  j_np = floor(j_day_no /  12053);
@@ -445,18 +445,18 @@ BEGIN
     if   j_day_no >= 366  then
         set jy = jy + floor((j_day_no-1) /  365);
         set j_day_no = (j_day_no-1) % 365;
-    end if;
+end if;
 
     set  i=0;
     while  i < 11  and j_day_no >=  ( select fmon from FMonArray  where _id= i + 1)  do
             set j_day_no = j_day_no - ( select fmon from FMonArray  where _id = i + 1);
             set  i = i + 1;
-        end while;
+end while;
 
     set jm = i+1;
     set jd = j_day_no+1;
 
-    return  concat_ws('/',jy,if(jm < 10 , concat('0',jm) , jm)    ,if(jd < 10 , concat('0',jd) , jd ));
+return  concat_ws('/',jy,if(jm < 10 , concat('0',jm) , jm)    ,if(jd < 10 , concat('0',jd) , jd ));
 END;
 
 $$
@@ -477,7 +477,7 @@ BEGIN
 
     if  (j_y < 1300  or  j_y > 1450  )  or (j_m <1  or j_m  > 12 )   or  (j_d < 1 or j_d > 31 )  then
         return 'date-error';
-    end if;
+end if;
 
 
     set  jy = j_y-979;
@@ -489,7 +489,7 @@ BEGIN
     while  i < jm  do
             set j_day_no = j_day_no + (select fmon from FMonArray  where  _id=i+1);
             set i = i+1;
-        end while;
+end while;
     set  j_day_no = j_day_no + jd;
     set  g_day_no = j_day_no+79;
     set  gy = 1600 + 400 *  floor(g_day_no /  146097);
@@ -501,10 +501,10 @@ BEGIN
         set g_day_no = g_day_no % 36524;
         if  g_day_no >= 365  then
             set g_day_no  =  g_day_no + 1;
-        else
+else
             set leap = false;
-        end if;
-    end if;
+end if;
+end if;
     set gy = gy + 4 *  floor(g_day_no / 1461);
     set g_day_no = g_day_no % 1461;
     if  g_day_no >= 366  then
@@ -512,15 +512,15 @@ BEGIN
         set g_day_no = g_day_no - 1 ;
         set gy = gy + floor(g_day_no /  365);
         set g_day_no = g_day_no % 365;
-    end if;
+end if;
     set  i = 0;
     while  g_day_no >= ( select  emon from EMonArray  where _id = i + 1 ) + ( select if(i = 1 and  leap = true , 1 , 0) )   do
             set g_day_no = g_day_no - (( select  emon from EMonArray  where _id = i + 1)  + ( select if ( i = 1 and  leap= true ,1,0)));
             set i = i + 1;
-        end while;
+end while;
     set gm = i+1;
     set gd = g_day_no+1;
-    return  concat_ws('-',gy , gm , gd );
+return  concat_ws('-',gy , gm , gd );
 END;
 
 $$
