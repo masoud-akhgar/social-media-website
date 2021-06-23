@@ -196,6 +196,17 @@ CREATE TABLE sadaf.likes (
                                  ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
+
+DROP TABLE IF EXISTS sadaf.pwdReset;
+CREATE TABLE sadaf.pwdReset (
+                          pwdResetId int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                          pwdResetEmail text NOT NULL,
+                          pwdResetSelector text NOT NULL,
+                          pwdResetToken longtext NOT NULL,
+                          pwdResetExpires text NOT NULL
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+
 INSERT INTO user (username, userId,pass, email) VALUES
 ('mahdipasyegane',1 ,'mahdi1234', 'mahdipasyegane@gmail.com'),
 ('mobinapooladi', 2,'mobina1234', 'mobinapooladi@gmail.com'),
