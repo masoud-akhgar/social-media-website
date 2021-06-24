@@ -14,7 +14,7 @@ date_default_timezone_set("Asia/Tehran");
 $now = date("Y-m-d");
 
 // File upload path
-$targetDir = "uploads/";
+$targetDir = "postImg/";
 $fileName = basename($_FILES["image"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
