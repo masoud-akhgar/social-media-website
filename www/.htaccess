@@ -5,6 +5,3 @@ php_value display_errors "On"
 php_value default_charset   "utf-8"
 php_value session.save_handler  "files"
 php_value session.gc_maxlifetime  "1800"
-
-
-

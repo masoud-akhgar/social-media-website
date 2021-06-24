@@ -44,7 +44,7 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 
 function send_email($email_address){
 
-    $OTP = rand (1000000 , 9999999);
+    $OTP = 123456789;
     $_SESSION["OTP"] = $OTP;
     $to = $email_address;
     $subject = "Sadaf system activation code";
