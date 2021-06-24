@@ -1,4 +1,4 @@
-﻿<head>
+<head>
     <title>create-new-password</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +27,40 @@
 </head>
 
 <body>
+
+<div class="container-fluid">
+    <?
+    if(isset($_GET["newpwd"])){
+        if($_GET["newpwd"] == "incorrectform"){
+        ?>
+            <div class="row">
+                <div class="col-1" ></div>
+                <div class="col-10" >
+                    <div class="alert alert-danger well" role="alert">Password must have 8 characters at least that include uppercase, lowercase & numbers.</div>
+                </div>
+                <div class="col-1" ></div>
+            </div>
+       <?}elseif ($_GET["newpwd"] == "empty") {
+            ?>
+            <div class="row">
+                <div class="col-1" ></div>
+                <div class="col-10" >
+                    <div class="alert alert-danger well" role="alert">Password or repeat password is empty.</div>
+                </div>
+                <div class="col-1" ></div>
+                </div>
+        <?}elseif ($_GET["newpwd"] == "pwdnotsame"){
+            ?>
+            <div class="row">
+                <div class="col-1" ></div>
+                <div class="col-10" >
+                    <div class="alert alert-danger well" role="alert">Password & repeat password aren't same.</div>
+                </div>
+                <div class="col-1" ></div>
+            </div>
+        <?}
+    } ?>
+</div>
 
 <div class="limiter">
     <div class="container-login100">
