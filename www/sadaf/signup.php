@@ -49,9 +49,6 @@ if($rec=$res->Fetch())
         include "forbidden_sign_up.html";
         die();
     }
-//    else{
-//        HTMLBegin();
-//    }
 }
 
 $message_array = [];
@@ -59,7 +56,7 @@ $username = "";
 $password = "";
 $password_repeat = "";
 $email = "";
-$pfname = "";
+$fname = "";
 $validation = true;
 $OTP = null;
 
@@ -70,26 +67,26 @@ if(isset($_REQUEST["submit"]))
     $password = $_REQUEST["UserPassword"];
     $password_repeat = $_REQUEST["UserPasswordRepeat"];
     $email = $_REQUEST["UserEmail"];
-    $pfname = $_REQUEST["pfname"];
+    $fname = $_REQUEST["fname"];
 
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message_array[0] = "فرمت ایمیل نادرست است";
+        $message_array[0] = "The email format is not valid.";
         $validation = false;
     }
 
     if (!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
-        $message_array[1] = "نام کاربری باید شامل حداقل 4 کاراکتر باشد";
+        $message_array[1] = "Username must have 4 characters at least.";
         $validation = false;
     }
 
     if (!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
-        $message_array[2] = "کلمه رمز باید شامل حداقل 8 حرف انگلیسی بزرگ و کوچک و عدد باشد";
+        $message_array[2] = "Password must have 8 characters at least that include uppercase, lowercase & numbers.";
         $validation = false;
     }
 
     if ($password != $password_repeat){
-        $message_array[3] = "کلمه رمز با تکرار آن مطابقت ندارد";
+        $message_array[3] = "Password & repeat password aren't same.";
         $validation = false;
     }
 
@@ -98,14 +95,13 @@ if(isset($_REQUEST["submit"]))
 
     if($trec = $res->fetch())
     {
-        if($trec['UserEmail'] == $email){
-            $message_array[4] = "این آدرس ایمیل قبلا ثبت شده است";
+        if($trec['email'] == $email){
+            $message_array[4] = "This email address is already registered.";
             $validation = false;
 
         }
-
-        if($trec['UserID'] == $username){
-            $message_array[5] = "این نام کاربری قبلا ثبت شده است";
+        if($trec['userId'] == $username){
+            $message_array[5] = "This username is already registered.";
             $validation = false;
         }
     }
@@ -115,24 +111,20 @@ if(isset($_REQUEST["submit"]))
 
         $mysql->Prepare("Insert into sadaf.profile
 						    (username, name, bio) values (?, ?, ?)");
-        $res = $mysql->ExecuteStatement(array($username, $pfname, "hello i'm ".$pfname));
+        $res = $mysql->ExecuteStatement(array($username, $fname, "hello i'm ".$fname));
 
         $mysql->Prepare("Select userid from sadaf.profile
 						    where name=? and username=?");
-        $res = $mysql->ExecuteStatement(array($pfname, $username));
+        $res = $mysql->ExecuteStatement(array($fname, $username));
 
 
 
         if($trec = $res->fetch())
         {
             $password_hashed = md5($password);
-
-//            date_default_timezone_set("Asia/Tehran");
-//            $date = date('Y/m/d h:i:s', time());
-
+            
             $mysql->Prepare("Insert into sadaf.user (username, pass, email) values (?, ?, ?)");
             $res = $mysql->ExecuteStatement(array($username, $password, $email));
-            echo "sssss";
         }
 
         $_SESSION["UserID"] = $username;
@@ -192,8 +184,8 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
             <form class="login100-form validate-form" method="post">
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Name is required">
                     <span class="label-input100">Name</span>
-                    <input class="input100" type="text" name="pfname" id="pfname" placeholder="Enter name" value= <?php
-                    echo $pfname;
+                    <input class="input100" type="text" name="fname" id="fname" placeholder="Enter name" value= <?php
+                    echo $fname;
                     ?>>
                     <span class="focus-input100"></span>
                 </div>
@@ -259,4 +251,3 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 <script src="loginStyle/js/main.js"></script>
 
 </body>
-

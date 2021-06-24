@@ -64,7 +64,7 @@ if(isset($_REQUEST["UserID"]))
         die();
     }
     else
-        $message = "نام کاربر یا کلمه عبور نادرست است";
+        $message = "Username or password is incorrect.";
 }
 ?>
 <body>
@@ -106,7 +106,6 @@ if(isset($_REQUEST["UserID"]))
 
                     <div class="flex-sb-m w-full p-b-30">
 
-                        <!-- redirect to password reset page -->
                         <?php
                         if(isset($_GET["newpwd"])){
                             if($_GET["newpwd"] == "passwordupdated"){
@@ -114,6 +113,8 @@ if(isset($_REQUEST["UserID"]))
                             }
                         }
                         ?>
+
+                        <!-- redirect to password reset page -->
                         <div>
                             <a href="forgottenpwd/reset-password.php" class="txt1">
                                 Forgot Password?
