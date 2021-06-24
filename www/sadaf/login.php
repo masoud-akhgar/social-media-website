@@ -37,8 +37,7 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-
-
+$username = $_SESSION["UserID"];
 $_SESSION["UserID"] = null;
 
 $message = "";
@@ -54,9 +53,9 @@ if(isset($_REQUEST["UserID"]))
     if($trec = $res->fetch())
     {
         session_start();
-        $_SESSION["UserID"] = $trec["userId"];
+        $_SESSION["UserID"] = $trec["username"];
         $_SESSION["SystemCode"] = 0;
-        $_SESSION["username"] = $trec["username"];
+        $_SESSION["UserName"] = $_SESSION["UserID"];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
@@ -65,7 +64,7 @@ if(isset($_REQUEST["UserID"]))
         die();
     }
     else
-        $message = "نام کاربر یا کلمه عبور نادرست است";
+        $message = "Username or password is incorrect.";
 }
 ?>
 <body>
@@ -107,7 +106,6 @@ if(isset($_REQUEST["UserID"]))
 
                     <div class="flex-sb-m w-full p-b-30">
 
-                        <!-- redirect to password reset page -->
                         <?php
                         if(isset($_GET["newpwd"])){
                             if($_GET["newpwd"] == "passwordupdated"){
@@ -115,6 +113,8 @@ if(isset($_REQUEST["UserID"]))
                             }
                         }
                         ?>
+
+                        <!-- redirect to password reset page -->
                         <div>
                             <a href="forgottenpwd/reset-password.php" class="txt1">
                                 Forgot Password?
