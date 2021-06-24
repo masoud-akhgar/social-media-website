@@ -53,9 +53,9 @@ if(isset($_REQUEST["UserID"]))
     if($trec = $res->fetch())
     {
         session_start();
-        $_SESSION["UserID"] = $trec["username"];
+        $_SESSION["UserID"] = $trec["userId"];
         $_SESSION["SystemCode"] = 0;
-        $_SESSION["UserName"] = $_SESSION["UserID"];
+        $_SESSION["UserName"] = $_SESSION["username"];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
