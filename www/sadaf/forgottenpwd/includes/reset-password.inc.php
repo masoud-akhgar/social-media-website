@@ -10,7 +10,10 @@ require_once "UI.inc.php";
         $password = $_POST["pwd"];
         $passwordRepeat = $_POST["pwd-repeat"];
 
-        if (empty($password) || empty($passwordRepeat)){
+        if(!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
+            header("Location: ../create-new-password.php?newpwd=incorrectform");
+            exit();
+        }elseif (empty($password) || empty($passwordRepeat)){
             header("Location: ../create-new-password.php?newpwd=empty");
             exit();
         }elseif ($password != $passwordRepeat){
