@@ -270,7 +270,7 @@ if (isset($_POST['unliked'])) {
                     <? } ?>
                     </p>
                     <p class="text-right detail">
-                        <a href="Menu.php?post=<?echo $rec['postId']?>"><i class="fa fa-comments"></i> COMMENT</a>
+                        <a href="post.php?post=<?echo $rec['postId']?>"><i class="fa fa-comments"></i> COMMENT</a>
                     </p>
                     <p class="text-right detail">
                         <a href=""><i class="fa fa-share"></i> SHARE</a>
