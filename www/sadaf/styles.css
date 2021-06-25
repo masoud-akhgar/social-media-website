@@ -1,13 +1,4 @@
-body {
-    padding-top: 100px;
-}
 
-.post {
-    width: 30%;
-    margin: 10px auto;
-    border: 1px solid #cbcbcb;
-    padding: 5px 10px 0px 10px;
-}
 
 .like,
 .unlike,
@@ -19,15 +10,3 @@ body {
     display: none;
 }
 
-.fa-thumbs-up,
-.fa-thumbs-o-up {
-    transform: rotateY(-180deg);
-    font-size: 1.3em;
-}
-
-.trending {
-    /* height: 300px; */
-    overflow-y: scroll;
-    font-size: 12px;
-    height: 130px;
-}
