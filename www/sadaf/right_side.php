@@ -41,7 +41,7 @@
                     {
                         echo "<div class='d-flex mt-2'>
                             <div class='col-9'>
-                                <p class='mt-1'>"."@". $rec2['username'] ."</p>
+                                <p class='mt-1'>". $rec2['username']."@</p>
                             </div>
         
                            

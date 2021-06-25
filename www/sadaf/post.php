@@ -9,6 +9,7 @@ $res = $mysql->ExecuteStatement(array($_GET['post']));
 $mysql->Prepare("select * from sadaf.comment, sadaf.profile where 
                                     sadaf.profile.userId=sadaf.comment.userId and postId=?");
 $res1 = $mysql->ExecuteStatement(array($_GET['post']));
+$userid = $_SESSION['UserID'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,18 +83,18 @@ $res1 = $mysql->ExecuteStatement(array($_GET['post']));
 $userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
 $rec = $userProfile->fetch();
 ?>
-<div class="profile2">
-    <div class="profile2-content">
-        <div class="content-middle">
+<div class="profile2" style="margin-top: 70px; margin-left: 350px ">
+    <div class="profile2-content" >
+        <div class="content-middle" >
             <div class="content-md-left">
                 <img src="<?echo $rec["profileimage"]?>">
             </div>
             <div class="content-md-middle">
                 <div class="post-title-name">
-                    <a href="">Daniel Jack</a><br>
+                    <a href=""><?echo $rec["name"]?></a><br>
                 </div>
                 <div class="post-title-time">
-                    <a href="">Saturday 13:52</a>
+                    <a href="">@<?echo $rec["username"]?></a>
                 </div>
                 <div class="post-desc">
                     <?echo $res->fetch()['text'];?>
@@ -119,7 +120,7 @@ $rec = $userProfile->fetch();
                     <div class="bg-gray comment p-3 shadow-bottom shadow-left w-100">
                         <div class="d-flex w-100">
                             <img src="<?echo $rec["profileimage"]?>">
-                            <input type="text " class="comment-holder ml-3 col-10 mr-1" placeholder="Write a Comment and press enter">
+                            <input type="text " class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo$_GET['post']; ?>" />
                             <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
                             <!-- <img class="ml-2" src="asset/images/plus.png"> -->
                         </div>
@@ -147,5 +148,31 @@ $rec = $userProfile->fetch();
     </div>
 </div><br><br><br><br>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.iscomment').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                $post = $(this);
+                var postid = $(this).data('id');
+                var text = $(this).val();
+                $.ajax({
+                    url: 'main.php',
+                    type: 'post',
+                    data: {
+                        'iscomment': 1,
+                        'postid': postid,
+                        'text':text
+                    },
+                    success: function(response){
+                        $post.val("");
+                        alert('comment added successfully')
+                    }
+                });
+            }
+        });
+    });
 
+</script>
 </html>

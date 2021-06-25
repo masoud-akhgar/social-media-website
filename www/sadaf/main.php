@@ -27,6 +27,13 @@ if (isset($_POST['unliked'])) {
     exit();
 }
 
+if (isset($_POST['iscomment'])) {
+    $postid = $_POST['postid'];
+    $text = $_POST['text'];
+    $mysql->Execute("INSERT INTO sadaf.comment (username, userId, postId, comment) VALUES ('".$username['username']."','".$userid."','".$postid."' ,'".$text."')");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -228,7 +235,7 @@ if (isset($_POST['unliked'])) {
                 <div class="bg-gray comment p-3 shadow-bottom shadow-left">
                     <div class="d-flex">
                         <img src="<? echo $rec["profileimage"]?>">
-                        <input type="text " class="comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter">
+                        <input type="text " class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $rec['postId']; ?>" />
                         <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
                         <!-- <img class="ml-2" src="asset/images/plus.png"> -->
                     </div>
@@ -300,6 +307,7 @@ if (isset($_POST['unliked'])) {
     }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function(){
         // when the user clicks on like
@@ -340,6 +348,30 @@ if (isset($_POST['unliked'])) {
                     $post.siblings().removeClass('hide');
                 }
             });
+        });
+    });
+
+    $(document).ready(function(){
+        $('.iscomment').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                $post = $(this);
+                var postid = $(this).data('id');
+                var text = $(this).val();
+                $.ajax({
+                    url: 'main.php',
+                    type: 'post',
+                    data: {
+                        'iscomment': 1,
+                        'postid': postid,
+                        'text':text
+                    },
+                    success: function(response){
+                        $post.val("");
+                        alert('comment added successfully')
+                    }
+                });
+            }
         });
     });
 </script>
