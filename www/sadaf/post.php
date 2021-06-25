@@ -18,7 +18,7 @@ $userid = $_SESSION['UserID'];
     <meta charset="UTF-8">
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Post</title>
+    <title>Social Network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -36,50 +36,10 @@ $userid = $_SESSION['UserID'];
 
 
 
-<body style="background-color: azure;">
-<header>
-    <div class="bg-primary-light shadow-bottom">
-        <div class="container d-flex header">
-            <div class="logo col-2">
-                <p class="mt-3 text-white">Our Social Network !</p>
-            </div>
-            <div class="asset col-5 text-left">
-                <ul class="nav d-flex">
-                    <li class="nav-item">
-                        <a href="main.php" class="nav-link text-white "> <img class="profile-header" src="asset/images/home.png" alt=""></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="text-left col-7">
-                <ul class="nav d-flex">
-                    <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/plus.png" alt=""></a>
-                    </li>
+<body style="background-color:rgb(230, 252, 252) ;">
+<?php include("header-top.php")?>
 
-                    <li class="nav-item">
-                        <a href="SignOut.php" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.html" class="nav-link text-white">
-                            <?
-                            $userid = $_SESSION['UserID'];
-                            $userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
-                            $user = $userProfile->fetch();
-                            ?>
-                            <div class="d-flex"><img class="profile-header" src="<?echo $user['profileimage']?>">
-                                <p class="mt-2 ml-1 text-white"> <?echo $_SESSION['username']?></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img src="asset/images/icons8-menu-vertical-50.png" class="w-50 mt-2"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
-<?php include("right_side.php"); ?>
+<?php include("left_side.php"); ?>
 <?
 $postuserid = $post['userId'];
 //$userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
@@ -103,13 +63,14 @@ $rec = $userProfile->fetch();
                 <div class="post-desc" style="font-size: 25px; text-align: right; direction: rtl">
                     <?echo $post['text'];?>
                     <br>
-                    <? if($post["image"] != null){?>
+                    <?
+                    if($post["image"] != null){?>
                         <div class="w-100" style="height: 500px;overflow: hidden;">
-                            <img src="./postImg/<?echo $post['image']?>" class="img-fluid">
+                            <img src="./postImg/<?echo $post['image']?>" class="img-fluid w-100 h-100 border-none">
                         </div>
                     <?} ?>
                 </div>
-                <div class="mt-3 bg-white w-100 px-2 py-2 shadow-bottom post pl-4">
+                <div class="mt-3  w-100 px-2 py-2 post pl-4">
                     <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
                     <div class="w-100">
                         <div class=" kadr w-100 d-flex justify-content-between post-detail">
@@ -133,10 +94,10 @@ $rec = $userProfile->fetch();
                         </div>
                     </div>
 
-                    <div class="bg-gray comment p-3 shadow-bottom shadow-left w-100">
+                    <div class=" comment p-3 w-100">
                         <div class="d-flex w-100">
                             <img src="<?echo $rec["profileimage"]?>">
-                            <input type="text " class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo$_GET['post']; ?>" />
+                            <input type="text " class="bg-none iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo$_GET['post']; ?>" />
                             <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
                             <!-- <img class="ml-2" src="asset/images/plus.png"> -->
                         </div>
@@ -163,6 +124,7 @@ $rec = $userProfile->fetch();
         </div>
     </div>
 </div><br><br><br><br>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>

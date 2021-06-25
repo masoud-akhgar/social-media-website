@@ -4,9 +4,11 @@ session_start();
 
 <!doctype html>
 <head>
-    <title>Login</title>
+<title>Social Network</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
     <!--===============================================================================================-->
@@ -27,7 +29,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
     <!--===============================================================================================-->
 </head>
 <!-- Programmer: Omid MilaniFard -->
@@ -37,7 +39,7 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-$username = $_SESSION["UserID"];
+
 $_SESSION["UserID"] = null;
 
 $message = "";
@@ -55,7 +57,7 @@ if(isset($_REQUEST["UserID"]))
         session_start();
         $_SESSION["UserID"] = $trec["userId"];
         $_SESSION["SystemCode"] = 0;
-        $_SESSION["UserName"] = $_SESSION["username"];
+        $_SESSION['username'] = $trec['username'];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
@@ -67,7 +69,7 @@ if(isset($_REQUEST["UserID"]))
         $message = "Username or password is incorrect.";
 }
 ?>
-<body>
+<body style="background-color:rgb(230, 252, 252) ;">
 
     <div class="container-fluid">
         <? if($message!="") { ?>
@@ -82,8 +84,8 @@ if(isset($_REQUEST["UserID"]))
     <? } ?>
 
     <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
+        <div class="container-login100" style="background-color:rgb(230, 252, 252) ;">
+            <div class="wrap-login100  shadow-bottom">
                 <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
                         <span class="login100-form-title-1">
                             Log In

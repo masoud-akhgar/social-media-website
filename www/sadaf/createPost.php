@@ -27,7 +27,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
     <!--===============================================================================================-->
 </head>
 <?php
@@ -45,14 +45,14 @@ $username = $_SESSION["UserID"];
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <div class="login100-form-title" style="background-image: url(loginStyle/images/post.png);">
+                <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
                         <span class="login100-form-title-1">
                             create post
                         </span>
                 </div>
 
                 <form class="login100-form validate-form" action="uploadPost.php" method="post" enctype="multipart/form-data">
-                    <div class="wrap-input100 m-b-26">
+                    <div class="wrap-input100 validate-input m-b-26">
                         <p> Select Image File to Upload: </p>
                         <input class="input100" type="file" name="image" id="image" placeholder="Image">
                         <span class="focus-input100"></span>
@@ -66,7 +66,7 @@ $username = $_SESSION["UserID"];
 
                     <div class="flex-sb-m w-full p-b-30">
                         <div class="container-login100-form-btn">
-                            <button type="submit" name="submit" value="upload" class="login100-form-btn">
+                            <button  type="submit" name="submit" value="upload" class="login100-form-btn">
                                 Submit
                             </button>
                         </div>

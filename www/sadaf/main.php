@@ -3,7 +3,7 @@ include('header.inc.php');
 $mysql = pdodb::getInstance();
 $userid = $_SESSION['UserID'];
 $result = $mysql->Execute("SELECT * FROM sadaf.user WHERE userId=$userid");
-$username = $result->fetch();;
+$username = $result->fetch();
 if (isset($_POST['liked'])) {
     $postid = $_POST['postid'];
     $result = $mysql->Execute("SELECT * FROM sadaf.post WHERE postId=$postid");
@@ -33,17 +33,7 @@ if (isset($_POST['iscomment'])) {
     $mysql->Execute("INSERT INTO sadaf.comment (username, userId, postId, comment) VALUES ('".$username['username']."','".$userid."','".$postid."' ,'".$text."')");
     exit();
 }
-if (isset($_POST['follow'])) {
-    $postid = $_POST['userid'];
-    $mysql->Execute("INSERT INTO `follow` (`followingId`, `followedId`) VALUES ('".$userid."', '".$postid."');");
-    exit();
-}
 
-if (isset($_POST['unfollow'])) {
-    $postid = $_POST['userid'];
-    $mysql->Execute("DELETE  FROM `follow` where `followingId` = '".$userid."' and `followedId` ='".$postid."';");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +66,7 @@ if (isset($_POST['unfollow'])) {
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Social-Media</title>
+    <title>Social Network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -85,59 +75,20 @@ if (isset($_POST['unfollow'])) {
     <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
 
-<body style="background-color:azure ;">
-<header>
-    <div class="bg-primary-light shadow-bottom">
-        <div class="container d-flex header">
-            <div class="logo col-2">
-                <p class="mt-3 text-white">Our Social Network !</p>
-            </div>
-            <div class="asset col-5 text-left">
-                <ul class="nav d-flex">
-                    <li class="nav-item">
-                        <a href="main.php" class="nav-link text-white "> <img class="profile-header" src="asset/images/home.png" alt=""></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="text-left col-7">
-                <ul class="nav d-flex">
-                    <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/plus.png" alt=""></a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="SignOut.php" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="profile.php" class="nav-link text-white">
-                            <?
-                            $userid = $_SESSION['UserID'];
-                            $userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
-                            $user = $userProfile->fetch();
-                            ?>
-                            <div class="d-flex"><img class="profile-header" src="<?echo $user['profileimage']?>">
-                                <p class="mt-2 ml-1 text-white"> <?echo $_SESSION['username']?></p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img src="asset/images/icons8-menu-vertical-50.png" class="w-50 mt-2"></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
+<body style="background-color:rgb(230, 252, 252) ;">
+<?php include("header-top.php")?>
 <div class="w-100" style="height:70px;"></div>
 <div class=" d-flex" style="direction:rtl;: left">
     <?php include("right_side.php");?>
 
+    
+
     <div class="col-3 " style="margin-right:17.6667777%;direction: ltr;">
 
-        <div class="bg-white p-1 px-3 shadow-left trending mt-3">
+        <div class="bg-white p-1 px-3 shadow-left trending div-radius mt-3">
             <?php
             $mysql = pdodb::getInstance();
             $res = $mysql->Execute("select * from sadaf.post, sadaf.profile  where 
@@ -146,7 +97,7 @@ if (isset($_POST['unfollow'])) {
             echo '<p class="titer">Trending !</p>';
             while($rec = $res->fetch())
             {
-                echo "<button type='button' class ='btn btn-primary mt-2 collapsible'>"."@". $rec['username'] ."</button>
+                echo "<button type='button' class ='btn btn-primary-myself text-white mt-2 collapsible'>"."@". $rec['username'] ."</button>
                         <div class ='content'>
                           <p>".$rec["text"]."</p>
                         </div>";
@@ -154,17 +105,14 @@ if (isset($_POST['unfollow'])) {
             //        echo "<button type='button' class='btn btn-outline-dark'>Dark</button>"
             ?>
         </div>
-        <div class="bg-white p-1 px-3 shadow-left pb-4 mt-3" style="overflow-y:scroll;height:430px;">
+        <div class="bg-white p-1 px-3 shadow-left pb-4 mt-3  div-radius" style="overflow-y:scroll;height:430px;">
             <div class="d-flex">
-                <p class="titer">People you may know</p>
-                <a href="" class="offset-6"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>
+                <p class="titer" style="min-width:150px">People you may know</p>
+                <a href="" class="offset-4"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>
             </div>
             <?
             $count =0;
-            $peoples = $mysql->Execute("select * from sadaf.follow,sadaf.profile where 
-                           sadaf.profile.userId = sadaf.follow.followedId and sadaf.follow.followedId != $userid
-                           and sadaf.follow.followedId not in 
-                           (SELECT sadaf.follow.followedId from  sadaf.follow where sadaf.follow.followingId=$userid)");
+            $peoples = $mysql->Execute("SELECT * FROM sadaf.follow,sadaf.profile where sadaf.profile.userId = sadaf.follow.followedId and followingId !=".$userid);
             while($people= $peoples->fetch()){
                 if ($count>3)
                     break;
@@ -176,16 +124,16 @@ if (isset($_POST['unfollow'])) {
                     </div>
                     <div class="col-9">
                         <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
-                        <button class="follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $people['userId']?>">Follow</button>
+                        <button class="btn btn-primary-myself text-white py-1 shadow-bottom">Follow</button>
                     </div>
                 </div>
             <?}?>
         </div>
-        <div class="bg-white p-1 px-3 shadow-left  mt-3">
+        <div class="bg-white p-1 px-3 shadow-left div-radius mt-3">
             <p class="titer">Invite your Friends</p>
             <div class=" border border-1 border-black w-100" style="min-height:40px;">
                 <input placeholder="E-Mali" class="w-100 Mali pl-1" style="min-height:40px;">
-                <a href="" class="btn-primary send pt-1"><i class="fa fa-send text-white mt-1" style="font-size: 20px;"></i></a>
+                <a href="" class="btn-primary-myself send pt-1"><i class="fa fa-send text-white mt-1" style="font-size: 20px;"></i></a>
             </div>
             <!-- <img src="asset/images/send.png" style="height: 100%;"> -->
         </div>
@@ -202,20 +150,21 @@ if (isset($_POST['unfollow'])) {
             ?>
 
             <div>
-                <div class="mt-3 bg-white  px-2 py-2 shadow-bottom post pl-4">
+                <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
                     <div class="d-flex">
-                        <img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>>
+                        <a href="profile.php"><img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>></a>   
+                        <a href="post.php?post=<?echo $rec['postId']?>" style="z-index:1">
                         <div class="ml-2">
                             <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
                             <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
-                        </div>
+                        </div></a>
                     </div>
-                    <p style="text-align: right; direction: rtl; font-size: 20px"><?echo $rec['text']?></p>
+                    <p class="mx-2" style="text-align: right; direction: rtl; font-size: 20px;opacity:0.8"><?echo $rec['text']?></p>
                     <br>
                     <? if($rec["image"] != null){?>
-                        <div class="w-100" style="height: 500px;overflow: hidden;">
-                            <img src="./postImg/<?echo $rec['image']?>" class="img-fluid">
-                        </div>
+                        <a href="post.php?post=<?echo $rec['postId']?>"><div class="w-100  border-none" style="height: 500px;overflow: hidden;">
+                            <img src="./postImg/<?echo $rec['image']?>" class="img-fluid w-100 h-100 border-none">
+                        </div></a>
                     <?} ?>
                     <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
                     <div class="w-100">
@@ -245,7 +194,7 @@ if (isset($_POST['unfollow'])) {
                     </div>
 
                 </div>
-                <div class="bg-gray comment p-3 shadow-bottom shadow-left">
+                <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
                     <div class="d-flex">
                         <img src="<? echo $rec["profileimage"]?>">
                         <input type="text " class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $rec['postId']; ?>" />
@@ -362,102 +311,6 @@ if (isset($_POST['unfollow'])) {
             });
         });
     });
-
-    $(document).ready(function(){
-        $('.iscomment').keydown(function(event){
-            var keyCode = (event.keyCode ? event.keyCode : event.which);
-            if (keyCode == 13) {
-                $post = $(this);
-                var postid = $(this).data('id');
-                var text = $(this).val();
-                $.ajax({
-                    url: 'main.php',
-                    type: 'post',
-                    data: {
-                        'iscomment': 1,
-                        'postid': postid,
-                        'text':text
-                    },
-                    success: function(response){
-                        $post.val("");
-                        alert('comment added successfully')
-                    }
-                });
-            }
-        });
-    });
-    $(document).ready(function(){
-        // when the user clicks on like
-        $('.follow').on('click', function(){
-            var userid = $(this).data('id');
-            $user = $(this);
-
-            $.ajax({
-                url: 'main.php',
-                type: 'post',
-                data: {
-                    'follow': 1,
-                    'userid': userid
-                },
-                success: function(response){
-                    $user.removeClass('btn-primary');
-                    $user.addClass('btn-outline-primary');
-                    $user.removeClass('follow');
-                    $user.addClass('unfollow');
-                    $user.text("Followed!")
-                }
-            });
-        });
-    });
-
-
-    $(document).ready(function(){
-        $('.iscomment').keydown(function(event){
-            var keyCode = (event.keyCode ? event.keyCode : event.which);
-            if (keyCode == 13) {
-                $post = $(this);
-                var postid = $(this).data('id');
-                var text = $(this).val();
-                $.ajax({
-                    url: 'main.php',
-                    type: 'post',
-                    data: {
-                        'iscomment': 1,
-                        'postid': postid,
-                        'text':text
-                    },
-                    success: function(response){
-                        $post.val("");
-                        alert('comment added successfully')
-                    }
-                });
-            }
-        });
-    });
-    $(document).ready(function(){
-        // when the user clicks on like
-        $('.follow').on('click', function(){
-            var userid = $(this).data('id');
-            $user = $(this);
-
-            $.ajax({
-                url: 'main.php',
-                type: 'post',
-                data: {
-                    'follow': 1,
-                    'userid': userid
-                },
-                success: function(response){
-                    $user.removeClass('btn-primary');
-                    $user.addClass('btn-outline-primary');
-                    $user.removeClass('follow');
-                    $user.addClass('unfollow');
-                    $user.text("Followed!")
-                }
-            });
-        });
-    });
-
 
     $(document).ready(function(){
         $('.iscomment').keydown(function(event){

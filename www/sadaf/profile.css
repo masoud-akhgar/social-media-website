@@ -8,8 +8,7 @@
 }
 
 html {
-    scroll-behavior: sm1ooth;
-    background-color: white;
+    scroll-behavior: smooth;
     overflow-x: scroll;
     scrollbar-color: #97d0dfb7 #ffffffb7;
     scrollbar-3dlight-color: #caf3fdb7;
@@ -71,7 +70,7 @@ html {
     position: absolute;
     margin-left: 140px;
     top: 140px;
-    background: #00A9FA;
+    background: #2973c2;
     padding: 5px;
     border-radius: 10px;
     font-size: 13pt;
@@ -210,7 +209,6 @@ html {
 
 .post-desc {
     width: 100%;
-    height: 385px;
     padding-left: 10px;
     padding-top: 10px;
 }

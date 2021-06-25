@@ -56,28 +56,8 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
     }else{
         $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
     }
-}elseif(isset($_POST["submit"]) && empty($_FILES["image"]["name"])){
-    $mysql = pdodb::getInstance();
-    $mysql->Prepare("select * from sadaf.user where userId=?");
-
-    $res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
-
-    if($trec = $res->fetch())
-    {
-        session_start();
-        $_SESSION["UserID"] = $trec["userId"];
-        $_SESSION["UserName"] = $trec["username"];
-
-        $mysql->Prepare("Insert into sadaf.post (username, userId, text, date) values (?, ?, ?, ?)");
-        $res = $mysql->ExecuteStatement(array($_SESSION["UserName"], $_SESSION['UserID'], $_POST['caption'], $now));
-        if($res){
-            $statusMsg = "The post has been uploaded successfully.";
-        }else{
-            $statusMsg = "Post upload failed, please try again.";
-        }
-    }
-    else
-        $message = "Sorry, you are not a valid user.";
+}else{
+    $statusMsg = 'Please select a file to upload.';
 }
 
 // Display status message

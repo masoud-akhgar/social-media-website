@@ -5,9 +5,29 @@
     z-index: 0;
 }
 
+.div-radius-bl {
+    border-bottom-left-radius: 15px;
+}
+
+.div-radius-br {
+    border-bottom-right-radius: 15px;
+}
+
+.div-radius {
+    border-radius: 15px;
+}
+
+.div-radius-tl {
+    border-top-left-radius: 15px;
+}
+
+.div-radius-tr {
+    border-top-right-radius: 15px;
+}
+
 html {
     scroll-behavior: smooth;
-    background-color: white;
+    /* background-color: rgb(199, 252, 252); */
     overflow-x: scroll;
     scrollbar-color: #97d0dfb7 #ffffffb7;
     scrollbar-3dlight-color: #caf3fdb7;
@@ -363,4 +383,12 @@ header {
 
 .kadr {
     border: 1px solid black;
+}
+
+.bg-primary-myself {
+    background-color: #2973c2;
+}
+
+.btn-primary-myself {
+    background-color: #2973c2;
 }
