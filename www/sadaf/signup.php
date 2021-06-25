@@ -7,8 +7,6 @@ session_start();
 <head>
 <title>Social Network</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
@@ -30,7 +28,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 
@@ -158,7 +156,7 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 
 ?>
 
-<body style="background-color:rgb(230, 252, 252) ;">
+<body>
 
 <div class="container-fluid">
     <? if($message_array) {
@@ -175,7 +173,7 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 <? }} ?>
 
 <div class="limiter">
-    <div class="container-login100" style="background-color:rgb(230, 252, 252) ;">
+    <div class="container-login100">
         <div class="wrap-login100 shadow-bottom">
             <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
                         <span class="login100-form-title-1">

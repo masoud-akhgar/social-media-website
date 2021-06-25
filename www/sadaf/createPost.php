@@ -6,7 +6,9 @@ session_start();
 <head>
     <title>Create Post</title>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
     <!--===============================================================================================-->
@@ -27,7 +29,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 <?php
