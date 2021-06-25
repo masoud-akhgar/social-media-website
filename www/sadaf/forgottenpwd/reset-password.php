@@ -22,10 +22,13 @@
     <link rel="stylesheet" type="text/css" href="../loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="../loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 
+<?php
+    $msg = '<p class="text-center"><b>notice: </b>An email will be send to you with instructions on how to reset your password.</p>'
+?>
 <body>
 
     <div class="limiter">
@@ -51,16 +54,16 @@
                         </div>
                     </div>
                 </form>
-                <div class="wrap-input100 validate-input m-b-26">
-                    <p class="text-center"><b>notice: </b>An email will be send to you with instructions on how to reset your password.</p>
-                </div>
                 <?php
                 if (isset($_GET["reset"])){
                     if ($_GET["reset"] == "success"){
-                        echo '<p class="">Check your e-mail!</p>';
+                        $msg = '<p class="text-center">Check your e-mail!</p>';
                     }
                 }
                 ?>
+                <div class="wrap-input100 validate-input m-b-26">
+                    <?php echo $msg ?>
+                </div>
             </div>
         </div>
     </div>
