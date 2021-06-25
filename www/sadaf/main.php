@@ -68,6 +68,7 @@ if (isset($_POST['unliked'])) {
     <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body style="background-color: azure;">
@@ -148,16 +149,16 @@ if (isset($_POST['unliked'])) {
                 if ($count>3)
                     break;
                 $count++;
-            ?>
-            <div class="d-flex mt-2">
-                <div class="w-25" style="left: 0;">
-                    <a href="profile.php"><img src="<?echo $people['profileimage']?>" class="w-100" style="height:80px;border-radius: 50%;"></a>
+                ?>
+                <div class="d-flex mt-2">
+                    <div class="w-25" style="left: 0;">
+                        <a href="profile.php"><img src="<?echo $people['profileimage']?>" class="w-100" style="height:80px;border-radius: 50%;"></a>
+                    </div>
+                    <div class="col-9">
+                        <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
+                        <button class="btn btn-primary py-1 shadow-bottom">Follow</button>
+                    </div>
                 </div>
-                <div class="col-9">
-                    <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
-                    <button class="btn btn-primary py-1 shadow-bottom">Follow</button>
-                </div>
-            </div>
             <?}?>
         </div>
         <div class="bg-white p-1 px-3 shadow-left  mt-3">
@@ -171,7 +172,7 @@ if (isset($_POST['unliked'])) {
 
     </div>
     <div class="col-5" style="direction: ltr;">
-    <?php
+        <?php
         $mysql = pdodb::getInstance();
         $res = $mysql->Execute("select * from sadaf.post, sadaf.profile where 
                                     sadaf.profile.userId=sadaf.post.userId and sadaf.post.userId in
@@ -180,61 +181,61 @@ if (isset($_POST['unliked'])) {
         {
             ?>
 
-        <div>
-        <div class="mt-3 bg-white  px-2 py-2 shadow-bottom post pl-4">
-            <div class="d-flex">
-                <img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>>
-                <div class="ml-2">
-                    <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
-                    <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
+            <div>
+                <div class="mt-3 bg-white  px-2 py-2 shadow-bottom post pl-4">
+                    <div class="d-flex">
+                        <img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>>
+                        <div class="ml-2">
+                            <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
+                            <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
+                        </div>
+                    </div>
+                    <p style="text-align: right"><?echo $rec['text']?></p>
+                    <br>
+                    <? if($rec["image"] != null){?>
+                        <div class="w-100" style="height: 500px;overflow: hidden;">
+                            <img src="./postImg/<?echo $rec['image']?>" class="img-fluid">
+                        </div>
+                    <?} ?>
+                    <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
+                    <div class="w-100">
+                        <div class=" kadr w-100 d-flex post-detail">
+
+                            <p class="text-right detail">
+                                <?
+                                $results = $mysql->Execute( "SELECT * FROM sadaf.likes WHERE userId=".$_SESSION['UserID']." AND postId=".$rec['postId']);
+                                //
+                                $cnt =  intval(count($results->fetch()));
+                                if ($cnt>1){ ?>
+                                    <span class="unlike fa fa-heart fa-lg"  style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
+                                    <span class="like hide fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
+                                <? }else{ ?>
+                                    <!-- user has not yet liked post -->
+                                    <span class="like fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
+                                    <span class="unlike hide fa fa-heart fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
+                                <? } ?>
+                            </p>
+                            <p class="text-right detail">
+                                <a href="post.php?post=<?echo $rec['postId']?>"><i class="fa fa-comments"></i> COMMENT</a>
+                            </p>
+                            <p class="text-right detail">
+                                <a href=""><i class="fa fa-share"></i> SHARE</a>
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <p style="text-align: right"><?echo $rec['text']?></p>
-            <br>
-            <? if($rec["image"] != null){?>
-            <div class="w-100" style="height: 500px;overflow: hidden;">
-                <img src="./postImg/<?echo $rec['image']?>" class="img-fluid">
-            </div>
-            <?} ?>
-            <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
-            <div class="w-100">
-                <div class=" kadr w-100 d-flex post-detail">
-
-                    <p class="text-right detail like">
-                        <?
-                        $results = $mysql->Execute( "SELECT * FROM sadaf.likes WHERE userId=".$_SESSION['UserID']." AND postId=".$rec['postId']);
-                        //
-                        $cnt =  intval(count($results->fetch()));
-                        if ($cnt>1){ ?>
-                        <span class="unlike fa fa-heart fa-lg"  style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
-                        <span class="like hide fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
-                        <? }else{ ?>
-                    <!-- user has not yet liked post -->
-                    <span class="like fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
-                    <span class="unlike hide fa fa-heart fa-lg" style="color: red" data-id="<?php echo $rec['postId']; ?>"></span>
-                    <? } ?>
-                    </p>
-                    <p class="text-right detail">
-                        <a href="post.php?post=<?echo $rec['postId']?>"><i class="fa fa-comments"></i> COMMENT</a>
-                    </p>
-                    <p class="text-right detail">
-                        <a href=""><i class="fa fa-share"></i> SHARE</a>
-                    </p>
+                <div class="bg-gray comment p-3 shadow-bottom shadow-left">
+                    <div class="d-flex">
+                        <img src="<? echo $rec["profileimage"]?>">
+                        <input type="text " class="comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter">
+                        <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
+                        <!-- <img class="ml-2" src="asset/images/plus.png"> -->
+                    </div>
                 </div>
-            </div>
 
-        </div>
-        <div class="bg-gray comment p-3 shadow-bottom shadow-left">
-            <div class="d-flex">
-                <img src="<? echo $rec["profileimage"]?>">
-                <input type="text " class="comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter">
-                <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
-                <!-- <img class="ml-2" src="asset/images/plus.png"> -->
             </div>
-        </div>
-
-    </div>
-    <?}?>
+        <?}?>
     </div>
     <?php include("left_side.php")?>
 </div>
