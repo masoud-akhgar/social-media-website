@@ -70,7 +70,7 @@ if (isset($_POST['unliked'])) {
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
+                        <a href="SignOut.php" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
                     </li>
                     <li class="nav-item">
                         <a href="profile.php" class="nav-link text-white">
