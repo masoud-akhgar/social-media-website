@@ -3,7 +3,7 @@ include('header.inc.php');
 $mysql = pdodb::getInstance();
 $userid = $_SESSION['UserID'];
 $result = $mysql->Execute("SELECT * FROM sadaf.user WHERE userId=$userid");
-$username = $result->fetch();
+$username = $result->fetch();;
 if (isset($_POST['liked'])) {
     $postid = $_POST['postid'];
     $result = $mysql->Execute("SELECT * FROM sadaf.post WHERE postId=$postid");
