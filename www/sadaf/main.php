@@ -33,7 +33,17 @@ if (isset($_POST['iscomment'])) {
     $mysql->Execute("INSERT INTO sadaf.comment (username, userId, postId, comment) VALUES ('".$username['username']."','".$userid."','".$postid."' ,'".$text."')");
     exit();
 }
+if (isset($_POST['follow'])) {
+    $postid = $_POST['userid'];
+    $mysql->Execute("INSERT INTO `follow` (`followingId`, `followedId`) VALUES ('".$userid."', '".$postid."');");
+    exit();
+}
 
+if (isset($_POST['unfollow'])) {
+    $postid = $_POST['userid'];
+    $mysql->Execute("DELETE  FROM `follow` where `followingId` = '".$userid."' and `followedId` ='".$postid."';");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -151,7 +161,10 @@ if (isset($_POST['iscomment'])) {
             </div>
             <?
             $count =0;
-            $peoples = $mysql->Execute("SELECT * FROM sadaf.follow,sadaf.profile where sadaf.profile.userId = sadaf.follow.followedId and followingId !=".$userid);
+            $peoples = $mysql->Execute("select * from sadaf.follow,sadaf.profile where 
+                           sadaf.profile.userId = sadaf.follow.followedId and sadaf.follow.followedId != $userid
+                           and sadaf.follow.followedId not in 
+                           (SELECT sadaf.follow.followedId from  sadaf.follow where sadaf.follow.followingId=$userid)");
             while($people= $peoples->fetch()){
                 if ($count>3)
                     break;
@@ -163,7 +176,7 @@ if (isset($_POST['iscomment'])) {
                     </div>
                     <div class="col-9">
                         <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
-                        <button class="btn btn-primary py-1 shadow-bottom">Follow</button>
+                        <button class="follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $people['userId']?>">Follow</button>
                     </div>
                 </div>
             <?}?>
@@ -349,6 +362,54 @@ if (isset($_POST['iscomment'])) {
             });
         });
     });
+
+    $(document).ready(function(){
+        $('.iscomment').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                $post = $(this);
+                var postid = $(this).data('id');
+                var text = $(this).val();
+                $.ajax({
+                    url: 'main.php',
+                    type: 'post',
+                    data: {
+                        'iscomment': 1,
+                        'postid': postid,
+                        'text':text
+                    },
+                    success: function(response){
+                        $post.val("");
+                        alert('comment added successfully')
+                    }
+                });
+            }
+        });
+    });
+    $(document).ready(function(){
+        // when the user clicks on like
+        $('.follow').on('click', function(){
+            var userid = $(this).data('id');
+            $user = $(this);
+
+            $.ajax({
+                url: 'main.php',
+                type: 'post',
+                data: {
+                    'follow': 1,
+                    'userid': userid
+                },
+                success: function(response){
+                    $user.removeClass('btn-primary');
+                    $user.addClass('btn-outline-primary');
+                    $user.removeClass('follow');
+                    $user.addClass('unfollow');
+                    $user.text("Followed!")
+                }
+            });
+        });
+    });
+
 
     $(document).ready(function(){
         $('.iscomment').keydown(function(event){
