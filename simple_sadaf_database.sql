@@ -137,7 +137,7 @@ CREATE TABLE sadaf.profile (
                                userId int(15) NOT NULL,
                                name varchar(30)  DEFAULT NULL,
                                bio text DEFAULT NULL ,
-                               image varchar(40)  DEFAULT '.\profileImg\profile.png',
+                               profileimage varchar(40)  DEFAULT './profileImg/profile.png',
                                PRIMARY KEY (userId),
                                FOREIGN KEY (userId)
                                    REFERENCES user(userId)
@@ -369,7 +369,7 @@ INSERT INTO follow (followingId, followedId) VALUES
 
 
 INSERT INTO post (username,userId, postId, text, image, date) VALUES
-('mahdipasyegane',1, 1, 'هرکی شعور رو جوری تعریف میکنه که طبق اون تعریف خودش با شعور حساب بشه', '', '2021-06-07'),
+('mahdipasyegane',1, 1, 'هرکی شعور رو جوری تعریف میکنه که طبق اون تعریف خودش با شعور حساب بشه', '1.jpeg', '2021-06-07'),
 ('mobinapooladi', 2,2, 'یکی از بزرگترین مشکلات و معضلات جامعه این است که افراد، تجربیات شخصی خود را به عنوان فکت علمی و قابل تعمیم به همه‌ی جامعه جا می‌زنند!', '', '2021-06-07'),
 ('amirroshandel',3, 3, 'زندگیت را خودت می نوازی
 مهم نیست چند نفر مهمان موسیقی زندگیت می شوند.
@@ -393,7 +393,7 @@ INSERT INTO post (username,userId, postId, text, image, date) VALUES
 ('nazanin_t',13,14,'من با هر نوع خشونت مخالفم؛ ولی اونی که وقتی ظرف میشوری هی ظرف اضافه میکنه رو باید با کفگیر سر برید.','','2021-06-17');
 
 
-
+Insert Into  comment(username, userId, postId, comment) values ('amirroshandel',3, 1,'عاااالی');
 
 
 
