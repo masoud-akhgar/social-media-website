@@ -434,6 +434,54 @@ if (isset($_POST['unfollow'])) {
             }
         });
     });
+    $(document).ready(function(){
+        // when the user clicks on like
+        $('.follow').on('click', function(){
+            var userid = $(this).data('id');
+            $user = $(this);
+
+            $.ajax({
+                url: 'main.php',
+                type: 'post',
+                data: {
+                    'follow': 1,
+                    'userid': userid
+                },
+                success: function(response){
+                    $user.removeClass('btn-primary');
+                    $user.addClass('btn-outline-primary');
+                    $user.removeClass('follow');
+                    $user.addClass('unfollow');
+                    $user.text("Followed!")
+                }
+            });
+        });
+    });
+
+
+    $(document).ready(function(){
+        $('.iscomment').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                $post = $(this);
+                var postid = $(this).data('id');
+                var text = $(this).val();
+                $.ajax({
+                    url: 'main.php',
+                    type: 'post',
+                    data: {
+                        'iscomment': 1,
+                        'postid': postid,
+                        'text':text
+                    },
+                    success: function(response){
+                        $post.val("");
+                        alert('comment added successfully')
+                    }
+                });
+            }
+        });
+    });
 </script>
 </body>
 
