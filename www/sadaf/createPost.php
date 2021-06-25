@@ -66,7 +66,7 @@ $username = $_SESSION["UserID"];
 
                     <div class="flex-sb-m w-full p-b-30">
                         <div class="container-login100-form-btn">
-                            <button type="submit" name="submit" value="upload" class="login100-form-btn">
+                            <button  type="submit" name="submit" value="upload" class="login100-form-btn">
                                 Submit
                             </button>
                         </div>

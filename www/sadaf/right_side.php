@@ -40,7 +40,7 @@
                     while($rec2 = $res->fetch())
                     {
                         echo "<div class='d-flex mt-2'>
-                            <div class='col-9'>
+                            <div class='col-9 ' >
                                 <p class='mt-1'>". $rec2['username']."@</p>
                             </div>
         
@@ -51,26 +51,29 @@
                 }
                 ?>
             </div>
-            <div class="w-100 mt-2" > 
-                <div>
-                    <a href=""><img src="./images/icons8-replay-30.png" class="offset-3 mt-1 d-inline" style="width: 20px ; height: 20px;"></a>
-                    <p class="d-inline titer">What's happening</p>
-                </div>
-                <?php
-                $mysql = pdodb::getInstance();
-                $res = $mysql->Execute("select * from sadaf.post, sadaf.profile  where 
-                    sadaf.post.username =  sadaf.profile.username and
-                    sadaf.post.postId in (select postId from sadaf.likes  group by postId having count(*) > 10 ) limit 5");
-                while($rec = $res->fetch())
-                {
-                    echo "<div class='d-flex mt-3'>
-                        <p style='font-size: 14px;'>". $rec['username']."@<br> commented on Masoud <br> posted ".rand(1, 5)." days ago</p>
-                        <p class='mt-4 mr-3'><img src='./images/megaphone.png' class='profile-header'></p>
-                        <hr>
-                    </div>" ;
-                }
-                ?>
+            <div style="margin-left: 20px;">
+            <a href="createPost.php"><button class="btn-lg btn-primary" style="">Create New Post</button></a>
             </div>
+<!--            <div class="w-100 mt-2" > -->
+<!--                <div>-->
+<!--                    <a href=""><img src="./images/icons8-replay-30.png" class="offset-3 mt-1 d-inline" style="width: 20px ; height: 20px;"></a>-->
+<!--                    <p class="d-inline titer">What's happening</p>-->
+<!--                </div>-->
+<!--                --><?php
+//                $mysql = pdodb::getInstance();
+//                $res = $mysql->Execute("select * from sadaf.post, sadaf.profile  where
+//                    sadaf.post.username =  sadaf.profile.username and
+//                    sadaf.post.postId in (select postId from sadaf.likes  group by postId having count(*) > 10 ) limit 5");
+//                while($rec = $res->fetch())
+//                {
+//                    echo "<div class='d-flex mt-3'>
+//                        <p style='font-size: 14px;'>". $rec['username']."@<br> commented on Masoud <br> posted ".rand(1, 5)." days ago</p>
+//                        <p class='mt-4 mr-3'><img src='./images/megaphone.png' class='profile-header'></p>
+//                        <hr>
+//                    </div>" ;
+//                }
+//                ?>
+<!--            </div>-->
         </div>
 
     </div>

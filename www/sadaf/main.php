@@ -78,7 +78,7 @@ if (isset($_POST['iscomment'])) {
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body style="background-color: azure;">
+<body style="background-color:azure ;">
 <header>
     <div class="bg-primary-light shadow-bottom">
         <div class="container d-flex header">
@@ -197,7 +197,7 @@ if (isset($_POST['iscomment'])) {
                             <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
                         </div>
                     </div>
-                    <p style="text-align: right"><?echo $rec['text']?></p>
+                    <p style="text-align: right; direction: rtl; font-size: 20px"><?echo $rec['text']?></p>
                     <br>
                     <? if($rec["image"] != null){?>
                         <div class="w-100" style="height: 500px;overflow: hidden;">

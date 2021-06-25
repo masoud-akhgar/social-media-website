@@ -6,7 +6,7 @@
 }
 
 html {
-    scroll-behavior: sm1ooth;
+    scroll-behavior: smooth;
     background-color: white;
     overflow-x: scroll;
     scrollbar-color: #97d0dfb7 #ffffffb7;
