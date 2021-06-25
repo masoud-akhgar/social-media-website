@@ -60,7 +60,7 @@ if(isset($_REQUEST["UserID"]))
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
         }
-        header("Location: createPost.php");
+        header("Location: main.php");
         die();
     }
     else
