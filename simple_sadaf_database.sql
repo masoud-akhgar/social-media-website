@@ -366,6 +366,7 @@ INSERT INTO follow (followingId, followedId) VALUES
 ('6', '9'),
 ('6', '10'),
 ('6','14'),
+('6','11'),
 ('7', '3'),
 ('7', '4'),
 ('7', '2'),
@@ -373,6 +374,7 @@ INSERT INTO follow (followingId, followedId) VALUES
 ('7', '8'),
 ('7', '9'),
 ('7','13'),
+('7','12'),
 ('7', '10');
 
 
