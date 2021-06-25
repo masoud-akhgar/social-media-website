@@ -27,7 +27,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 <!-- Programmer: Omid MilaniFard -->
@@ -37,7 +37,7 @@ require_once "DateUtils.inc.php";
 require_once "SharedClass.class.php";
 require_once "UI.inc.php";
 
-
+$username = $_SESSION["UserID"];
 $_SESSION["UserID"] = null;
 
 $message = "";
@@ -55,7 +55,7 @@ if(isset($_REQUEST["UserID"]))
         session_start();
         $_SESSION["UserID"] = $trec["userId"];
         $_SESSION["SystemCode"] = 0;
-        $_SESSION['username'] = $trec['username'];
+        $_SESSION["UserName"] = $_SESSION["username"];
         $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
