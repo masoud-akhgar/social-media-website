@@ -4,7 +4,7 @@ session_start();
 
 <!doctype html>
 <head>
-    <title>Login SOSO</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
