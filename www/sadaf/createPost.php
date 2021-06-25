@@ -27,7 +27,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 <?php
@@ -52,7 +52,7 @@ $username = $_SESSION["UserID"];
                 </div>
 
                 <form class="login100-form validate-form" action="uploadPost.php" method="post" enctype="multipart/form-data">
-                    <div class="wrap-input100 validate-input m-b-26">
+                    <div class="wrap-input100 m-b-26">
                         <p> Select Image File to Upload: </p>
                         <input class="input100" type="file" name="image" id="image" placeholder="Image">
                         <span class="focus-input100"></span>
