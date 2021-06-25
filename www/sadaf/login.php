@@ -27,7 +27,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 <!-- Programmer: Omid MilaniFard -->
@@ -60,7 +60,7 @@ if(isset($_REQUEST["UserID"]))
         if($_SESSION["LIPAddress"]=="") {
             $_SESSION["LIPAddress"] = 0;
         }
-        header("Location: main.php");
+        header("Location: createPost.php");
         die();
     }
     else

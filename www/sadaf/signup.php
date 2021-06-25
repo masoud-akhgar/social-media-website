@@ -28,7 +28,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/main.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
     <!--===============================================================================================-->
 </head>
 
