@@ -86,7 +86,8 @@ if (isset($_POST['unfollow'])) {
     <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fontStyle.css">
 </head>
 
 <body style="background-color:rgb(230, 252, 252) ;">
@@ -95,7 +96,7 @@ if (isset($_POST['unfollow'])) {
 <div class=" d-flex" style="direction:rtl;: left">
     <?php include("right_side.php");?>
 
-    
+
 
     <div class="col-3 " style="margin-right:17.6667777%;direction: ltr;">
 
@@ -119,7 +120,7 @@ if (isset($_POST['unfollow'])) {
         <div class="bg-white p-1 px-3 shadow-left pb-4 mt-3 div-radius" style="overflow-y:scroll;height:430px;">
             <div class="d-flex">
                 <p class="titer mt-2">People you may know</p>
-<!--                <a href="" class="offset-6"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>-->
+                <!--                <a href="" class="offset-6"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>-->
             </div>
             <?
             $count =0;
@@ -166,19 +167,19 @@ if (isset($_POST['unfollow'])) {
             <div>
                 <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
                     <div class="d-flex">
-                        <a href="profile.php"><img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>></a>   
+                        <a href="profile.php"><img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>></a>
                         <a href="post.php?post=<?echo $rec['postId']?>" style="z-index:1">
-                        <div class="ml-2">
-                            <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
-                            <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
-                        </div></a>
+                            <div class="ml-2">
+                                <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
+                                <p class="text-dark" style="font-size:12px;margin-top: -20px;">@<?echo $rec['username']?></p>
+                            </div></a>
                     </div>
-                    <p class="mx-2" style="text-align: right; direction: rtl; font-size: 20px;opacity:0.8"><?echo $rec['text']?></p>
+                    <p class="postFont mx-2" style=" font-family: 'byekan'; font-size:25px;text-align: right; direction: rtl; font-size: 20px;opacity:0.8"><?echo $rec['text']?></p>
                     <br>
                     <? if($rec["image"] != null){?>
                         <a href="post.php?post=<?echo $rec['postId']?>"><div class="w-100  border-none" style="height: 500px;overflow: hidden;">
-                            <img src="./postImg/<?echo $rec['image']?>" class="img-fluid w-100 h-100 border-none">
-                        </div></a>
+                                <img src="./postImg/<?echo $rec['image']?>" class="img-fluid w-100 h-100 border-none">
+                            </div></a>
                     <?} ?>
                     <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
                     <div class="w-100">
