@@ -39,20 +39,19 @@
 
                     while($rec2 = $res->fetch())
                     {
-                        echo "<div class='d-flex mt-2'>
+                        ?>
+                        <div class='d-flex mt-2'>
                             <div class='col-9 ' >
-                                <p class='mt-1'>". $rec2['username']."@</p>
+                                <a href="profile.php?user=<?echo $rec2['username']?>"><p class="mt-1"><?echo $rec2['username']?>@</p></a>
                             </div>
-        
-                           
-                        </div>";
-
+                        </div>
+<?
                     }
                 }
                 ?>
             </div>
             <div style="margin-left: 20px;">
-            <a href="createPost.php"><button class="btn-lg btn-primary-myself  text-white" style="">Create New Post</button></a>
+            <a href="createPost.php"><button class="btn-lg btn-primary-myself  text-white" style="position: fixed; bottom: 25px; right: 25px;">Create New Post</button></a>
             </div>
            <!-- <div class="w-100 mt-2" >
                <div>

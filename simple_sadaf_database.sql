@@ -199,11 +199,11 @@ CREATE TABLE sadaf.likes (
 
 DROP TABLE IF EXISTS sadaf.pwdReset;
 CREATE TABLE sadaf.pwdReset (
-                          pwdResetId int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-                          pwdResetEmail text NOT NULL,
-                          pwdResetSelector text NOT NULL,
-                          pwdResetToken longtext NOT NULL,
-                          pwdResetExpires text NOT NULL
+                                pwdResetId int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                                pwdResetEmail text NOT NULL,
+                                pwdResetSelector text NOT NULL,
+                                pwdResetToken longtext NOT NULL,
+                                pwdResetExpires text NOT NULL
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 

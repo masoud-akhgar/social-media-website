@@ -33,6 +33,17 @@ if (isset($_POST['iscomment'])) {
     $mysql->Execute("INSERT INTO sadaf.comment (username, userId, postId, comment) VALUES ('".$username['username']."','".$userid."','".$postid."' ,'".$text."')");
     exit();
 }
+if (isset($_POST['follow'])) {
+    $postid = $_POST['userid'];
+    $mysql->Execute("INSERT INTO `follow` (`followingId`, `followedId`) VALUES ('".$userid."', '".$postid."');");
+    exit();
+}
+
+if (isset($_POST['unfollow'])) {
+    $postid = $_POST['userid'];
+    $mysql->Execute("DELETE  FROM `follow` where `followingId` = '".$userid."' and `followedId` ='".$postid."';");
+    exit();
+}
 
 ?>
 
@@ -75,7 +86,7 @@ if (isset($_POST['iscomment'])) {
     <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="styles.css"> -->
+     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body style="background-color:rgb(230, 252, 252) ;">
@@ -105,14 +116,17 @@ if (isset($_POST['iscomment'])) {
             //        echo "<button type='button' class='btn btn-outline-dark'>Dark</button>"
             ?>
         </div>
-        <div class="bg-white p-1 px-3 shadow-left pb-4 mt-3  div-radius" style="overflow-y:scroll;height:430px;">
+        <div class="bg-white p-1 px-3 shadow-left pb-4 mt-3 div-radius" style="overflow-y:scroll;height:430px;">
             <div class="d-flex">
-                <p class="titer" style="min-width:150px">People you may know</p>
-                <a href="" class="offset-4"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>
+                <p class="titer mt-2">People you may know</p>
+<!--                <a href="" class="offset-6"><img src="asset/images/icons8-replay-30.png" class=" mt-1" style="width: 20px ; height: 20px;"></a>-->
             </div>
             <?
             $count =0;
-            $peoples = $mysql->Execute("SELECT * FROM sadaf.follow,sadaf.profile where sadaf.profile.userId = sadaf.follow.followedId and followingId !=".$userid);
+            $peoples = $mysql->Execute("select * from sadaf.follow,sadaf.profile where 
+                           sadaf.profile.userId = sadaf.follow.followedId and sadaf.follow.followedId != $userid
+                           and sadaf.follow.followedId not in 
+                           (SELECT sadaf.follow.followedId from  sadaf.follow where sadaf.follow.followingId=$userid)");
             while($people= $peoples->fetch()){
                 if ($count>3)
                     break;
@@ -124,7 +138,7 @@ if (isset($_POST['iscomment'])) {
                     </div>
                     <div class="col-9">
                         <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
-                        <button class="btn btn-primary-myself text-white py-1 shadow-bottom">Follow</button>
+                        <button class="follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $people['userId']?>">Follow</button>
                     </div>
                 </div>
             <?}?>
@@ -333,6 +347,30 @@ if (isset($_POST['iscomment'])) {
                     }
                 });
             }
+        });
+    });
+
+    $(document).ready(function(){
+        // when the user clicks on like
+        $('.follow').on('click', function(){
+            var userid = $(this).data('id');
+            $user = $(this);
+
+            $.ajax({
+                url: 'main.php',
+                type: 'post',
+                data: {
+                    'follow': 1,
+                    'userid': userid
+                },
+                success: function(response){
+                    $user.removeClass('btn-primary');
+                    $user.addClass('btn-outline-primary');
+                    $user.removeClass('follow');
+                    $user.addClass('unfollow');
+                    $user.text("Followed!")
+                }
+            });
         });
     });
 </script>

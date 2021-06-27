@@ -1,3 +1,6 @@
+<?php
+//include('header.inc.php');
+?>
 <header>
     <div class="bg-primary-myself shadow-bottom">
         <div class="container d-flex header">
@@ -17,20 +20,23 @@
                         <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/plus.png" alt=""></a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="" class="nav-link text-white"><img class="profile-header" src="asset/images/icons8-notification-24.png" alt=""></a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="profile.php" class="nav-link text-white">
                             <?
+
+                            $mysql1 = pdodb::getInstance();
                             $userid = $_SESSION['UserID'];
-                            $userProfile = $mysql->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
+                            $userProfile = $mysql1->Execute("SELECT * FROM sadaf.profile WHERE userId=$userid");
                             $user = $userProfile->fetch();
                             ?>
                             <div class="d-flex"><img class="profile-header" src="<?echo $user['profileimage']?>">
-                                <p class="mt-2 ml-1 text-white"> <?echo $_SESSION['username']?></p>
+                                <p class="mt-2 ml-1 text-white"> <?echo $_SESSION['UserName']?></p>
                             </div>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="SignOut.php" class="nav-link text-white"><i class="fa fa-sign-out fa-2x mt-1" aria-hidden="true"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href="" class="nav-link text-white"><img src="asset/images/icons8-menu-vertical-50.png" class="w-50 mt-2"></a>
