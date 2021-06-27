@@ -1,4 +1,4 @@
-<script src="right_script.js"></script>
+
 <div class="col-2 div-radius  shadow-left ml-3 pt-2" style="margin-top: 82px; background-color: #f6f6f6;top:-20px;height: 900px;position: fixed;">
         <div class="text-left">
             <!-- <div class="mt-1 d-inline">
@@ -11,9 +11,9 @@
             <div class="d-flex">
                 <button class="btn hover-primary"> online <img src="asset/images/eye.png" style="width: 20px;"> </button>
             </div>
-            <div class="d-flex">
-                <button class="btn hover-primary">offline <img src="asset/images/invisible.png" style="width: 20px;"> </button>
-            </div>
+<!--            <div class="d-flex">-->
+<!--                <button class="btn hover-primary">offline <img src="asset/images/invisible.png" style="width: 20px;"> </button>-->
+<!--            </div>-->
         </div>
         <div class=" mt-2">
             <div>
