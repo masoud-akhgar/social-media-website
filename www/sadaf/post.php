@@ -28,6 +28,7 @@ $userid = $_SESSION['UserID'];
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fontStyle.css">
 </head>
 
 
@@ -60,7 +61,7 @@ $rec = $userProfile->fetch();
                 <div class="post-title-time">
                     <a href="">@<?echo $rec["username"]?></a>
                 </div>
-                <div class="post-desc" style="font-size: 25px; text-align: right; direction: rtl">
+                <div class="post-desc postFont" style="font-family:'beykan'; font-size: 25px; text-align: right; direction: rtl">
                     <?echo $post['text'];?>
                     <br>
                     <?
