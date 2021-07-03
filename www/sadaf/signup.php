@@ -1,11 +1,10 @@
-
 <?php
 session_start();
 ?>
 
 <!doctype html>
 <head>
-<title>Social Network</title>
+<title>Sign Up SoSo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -63,33 +62,39 @@ $OTP = null;
 
 if(isset($_REQUEST["submit"]))
 {
-    $username = $_REQUEST["UserID"];
+    $username = $_REQUEST["UserName"];
     $password = $_REQUEST["UserPassword"];
     $password_repeat = $_REQUEST["UserPasswordRepeat"];
     $email = $_REQUEST["UserEmail"];
     $fname = $_REQUEST["fname"];
 
 
+    // check format of email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message_array[0] = "The email format is not valid.";
         $validation = false;
     }
 
+    // check format of username
     if (!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
         $message_array[1] = "Username must have 4 characters at least.";
         $validation = false;
     }
 
+    // check format of password
     if (!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
         $message_array[2] = "Password must have 8 characters at least that include uppercase, lowercase & numbers.";
         $validation = false;
     }
 
+    // check password & re-password are same
     if ($password != $password_repeat){
         $message_array[3] = "Password & repeat password aren't same.";
         $validation = false;
     }
 
+
+    // check the username or email doesn't exist in database
     $mysql->Prepare("Select username, email from sadaf.user where username = ? OR email = ?");
     $res = $mysql->ExecuteStatement(array($username,$email));
 
@@ -100,11 +105,13 @@ if(isset($_REQUEST["submit"]))
             $validation = false;
 
         }
-        if($trec['userId'] == $username){
+        if($trec['username'] == $username){
             $message_array[5] = "This username is already registered.";
             $validation = false;
         }
     }
+
+    // insert the info to db
     if($validation){
 
         $mysql = pdodb::getInstance();
@@ -127,11 +134,9 @@ if(isset($_REQUEST["submit"]))
             $res = $mysql->ExecuteStatement(array($username, $password, $email));
         }
 
-        $_SESSION["UserID"] = $username;
+        $_SESSION["UserName"] = $username;
         $_SESSION["UserEmail"] = $email;
         header("Location: login.php");
-//        echo "<script>document.location='EmailAuthentication.php';</script>";
-//        send_email($email);
         die();
     }
 }
@@ -140,19 +145,6 @@ function erase_val(&$myarr) {
     $myarr = array_map(create_function('$n', 'return null;'), $myarr);
 }
 
-function send_email($email_address){
-
-//    $OTP = rand (1000000 , 9999999);
-    $OTP = 1;
-    $_SESSION["OTP"] = $OTP;
-    $to = $email_address;
-    $subject = "Sadaf system activation code";
-    $txt = "کاربر گرامی سلام. کد فعال سازی زیر مربوط به حساب کاربری شما در سیستم سدف می باشد.". "\n\n".$OTP ;
-    mail($to, $subject, $txt);
-
-}
-
-function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data ) .')'.'</script>';}
 
 ?>
 
@@ -176,9 +168,9 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
     <div class="container-login100">
         <div class="wrap-login100 shadow-bottom">
             <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
-                        <span class="login100-form-title-1">
-                            Sign Up
-                        </span>
+                <span class="login100-form-title-1">
+                    Sign Up
+                </span>
             </div>
 
             <form class="login100-form validate-form" method="post">
@@ -192,8 +184,8 @@ function console_log( $data ){echo '<script>'.'console.log('. json_encode( $data
 
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                     <span class="label-input100">Username</span>
-                    <input class="input100" type="text" name="UserID" id="UserID" placeholder="Enter username" value=<?php echo $_SESSION["UserID"];
-                    $_SESSION["UserID"] = null; ?>>
+                    <input class="input100" type="text" name="UserName" id="UserName" placeholder="Enter username" value=<?php echo $_SESSION["UserName"];
+                    $_SESSION["UserName"] = null; ?>>
                     <span class="focus-input100"></span>
                 </div>
 
