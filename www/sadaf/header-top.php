@@ -1,5 +1,5 @@
 <?php
-//include('header.inc.php');
+session_start();
 ?>
 <header>
     <div class="bg-primary-myself shadow-bottom">
@@ -22,7 +22,7 @@
 
 
                     <li class="nav-item">
-                        <a href="profile.php" class="nav-link text-white">
+                        <a href="profile.php?user=<?php echo $_SESSION['UserID']; ?>" class="nav-link text-white">
                             <?
 
                             $mysql1 = pdodb::getInstance();

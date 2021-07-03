@@ -1,9 +1,12 @@
+<?php
+session_start();
+?>
 <div class="col-2 side" style="direction: ltr;position: fixed;left: 0; ">
             <div class="pl-5 ml-3 mt-1">
                 <a href="">
                     <div class="d-flex menu">
                         <img src="./images/profile.png">
-                        <p class="ml-2"><a href="profile.php">See Your Profile</a></p>
+                        <p class="ml-2"><a href="profile.php?user=<? echo $_SESSION['UserId']; ?>">See Your Profile</a></p>
 
                     </div>
                 </a>

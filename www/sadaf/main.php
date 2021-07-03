@@ -134,7 +134,7 @@ if (isset($_POST['unfollow'])) {
                 ?>
                 <div class="d-flex mt-2">
                     <div class="w-25" style="left: 0;">
-                        <a href="profile.php"><img src="<?echo $people['profileimage']?>" class="w-100" style="height:80px;border-radius: 50%;"></a>
+                        <a href="profile.php?user=<?php echo $people['userId'] ?>"><img src="<?echo $people['profileimage']?>" class="w-100" style="height:80px;border-radius: 50%;"></a>
                     </div>
                     <div class="col-9">
                         <p class="titer mt-1" style="font-size:20px;"><? echo $people['username']?></p>
@@ -166,7 +166,7 @@ if (isset($_POST['unfollow'])) {
             <div>
                 <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
                     <div class="d-flex">
-                        <a href="profile.php"><img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>></a>
+                        <a href="profile.php?user=<?php echo $rec['userId'] ?>"><img id="profile-post" class="shadow-bottom" src=<?echo $rec["profileimage"]?>></a>
                         <a href="post.php?post=<?echo $rec['postId']?>" style="z-index:1">
                             <div class="ml-2">
                                 <p class="mt-1" style="font-weight: bold"><?echo $rec['name']?></p>
