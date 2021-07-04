@@ -165,6 +165,7 @@ while($trec = $res->fetch())
 
     <div class="profile2-content">
         <div class="content-middle">
+            <?php for ($i=0; $i<sizeof($caption_post); $i++) { ?>
             <div class="content-md-left">
                 <?php echo "<a href=''><img src= $profimage ></a>"?>
             </div>
@@ -174,55 +175,51 @@ while($trec = $res->fetch())
                     <br>
                     <?php echo "<small> ($username) </small>"?>
                 </div>
-                <!--                        <div class="post-title-time">-->
-                <!--                            <a href="post.php">Saturday 13:52</a>-->
-                <!--                        </div>-->
-                <?php for ($i=0; $i<sizeof($caption_post); $i++) { ?>
-                    <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
-                        <div class="post-desc">
-                            <p style=" font-family: 'byekan'; font-size:25px;text-align: right; direction: rtl; font-size: 20px;opacity:0.8">
-                                <?php echo $caption_post[$i] ?>
-                            </p>
-                            <br>
-                            <?php if (!empty($img_post[$i])) echo "<img src='./postImg/$img_post[$i]' class='w-100'>"?>
-
-                        </div>
-                        <div class="mt-5 bg-white w-100 px-2 py-2 shadow-bottom post pl-4">
-
-                            <?php echo "<p class='d-inline' style='font-size: 14px;'>like $likes[$i] comment $comment_size[$i]</p>" ?>
-                            <form method="post">
-                                <div class="w-100">
-                                    <div class=" kadr w-100 d-flex post-detail">
-                                        <p class="text-right detail">
-                                            <? if ($cnt[$i] > 1){ ?>
-                                                <span class="unlike fa fa-heart fa-lg"  style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
-                                                <span class="like hide fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
-                                            <? }else{ ?>
-                                                <!-- user has not yet liked post -->
-                                                <span class="like fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
-                                                <span class="unlike hide fa fa-heart fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
-                                            <? } ?>
-                                        </p>
-                                        <p class="text-right detail">
-                                            <a href="post.php?post=<?echo $id_post[$i]?>"><i class="fa fa-comments"></i> COMMENT</a>
-                                        </p>
-                                        <p class="text-right detail">
-                                            <a href=""><i class="fa fa-share"></i> SHARE</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
-                                <div class="d-flex">
-                                    <?php echo "<img src= $profimage >" ?>
-                                    <input type="text" class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $id_post[$i].'-'.$userId ?>" />
-                                    <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
-                                    <!-- <img class="ml-2" src="asset/images/plus.png"> -->
-                                </div>
-                            </div>
-                        </div>
+                <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
+                    <div class="post-desc">
+                        <p style=" font-family: 'byekan'; font-size:25px;text-align: right; direction: rtl; font-size: 20px;opacity:0.8">
+                            <?php echo $caption_post[$i] ?>
+                        </p>
+                        <br>
+                        <?php if (!empty($img_post[$i])) echo "<img src='./postImg/$img_post[$i]' class='w-100'>"?>
 
                     </div>
+                    <div class="mt-5 bg-white w-100 px-2 py-2 shadow-bottom post pl-4">
+
+                        <?php echo "<p class='d-inline' style='font-size: 14px;'>like $likes[$i] comment $comment_size[$i]</p>" ?>
+                        <form method="post">
+                            <div class="w-100">
+                                <div class=" kadr w-100 d-flex post-detail">
+                                    <p class="text-right detail">
+                                        <? if ($cnt[$i] > 1){ ?>
+                                            <span class="unlike fa fa-heart fa-lg"  style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                            <span class="like hide fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                        <? }else{ ?>
+                                            <!-- user has not yet liked post -->
+                                            <span class="like fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                            <span class="unlike hide fa fa-heart fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                        <? } ?>
+                                    </p>
+                                    <p class="text-right detail">
+                                        <a href="post.php?post=<?echo $id_post[$i]?>"><i class="fa fa-comments"></i> COMMENT</a>
+                                    </p>
+                                    <p class="text-right detail">
+                                        <a href=""><i class="fa fa-share"></i> SHARE</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
+                            <div class="d-flex">
+                                <?php echo "<img src= $profimage >" ?>
+                                <input type="text" class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $id_post[$i].'-'.$userId ?>" />
+                                <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
+                                <!-- <img class="ml-2" src="asset/images/plus.png"> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <?php }?>
 
             </div>
