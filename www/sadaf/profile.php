@@ -151,11 +151,16 @@ while($trec = $res->fetch())
             <?php $followed = 'true'; }elseif ((!empty($followed)) and $followed === 'true') { ?>
             <button class="unfollowing follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $userId?>">Followed</button>
             <?php $followed = 'false'; } ?>
+                <p class="follow btn btn-success text-white" style="margin-left:-140px;font-size:12px;">Following : 123</p>
+                <p class="follow btn btn-success text-white mt-5" style="margin-left:-140px;font-size:12px;">Followers : 133</p>
         <?php echo "<a href=''><img src= $profimage ></a>"?>
-
+        
         <?php echo "<span> $name </span>"?>
+        
         <br>
         <?php echo "<small> ($username) </small>"?>
+        <small class="w-100">Bio located here blablablablblb bal</small>
+
     </div>
 
     <div >
@@ -163,7 +168,7 @@ while($trec = $res->fetch())
         <p> followings:<?php echo $followingNumber?></p>
     </div>
 
-    <div class="profile2-content">
+    <div class="profile2-content mt-5">
         <div class="content-middle">
             <?php for ($i=0; $i<sizeof($caption_post); $i++) { ?>
             <div class="content-md-left">
