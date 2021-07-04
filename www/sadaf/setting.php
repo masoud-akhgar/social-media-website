@@ -3,19 +3,12 @@ include('header.inc.php');
 session_start();
 
 ?>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Change Info</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,35 +37,61 @@ session_start();
 </head>
 
 <?php
+$userId ='';
+$name = '';
+$username = '';
+$profimage = '';
+$bio = '';
+$email = '';
 
 $mysql = pdodb::getInstance();
 $mysql->Prepare("select * from sadaf.profile where userId=?");
 $res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
 
 if ($trec = $res->fetch()) {
-    $userId = $trec['userId'];
-    $name = $trec['name'];
-    $username = $trec['username'];
-    $profimage = $trec['profileimage'];
-    $bio = $trec["bio"];
 
-    $oldUsername = $username;
+    $oldUsername = $trec['username'];
 
     $mysql->Prepare("select * from sadaf.user where userId=?");
     $res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
-    if($trec = $res->fetch()){
-        $email = $trec['email'];
-        $oldEmail = $email;
+    if ($trec = $res->fetch()) {
+        $oldEmail = $trec['email'];
     }
-} else
-    $message = "This person is not valid.";
+}
+$validation = true;
 
-if(isset($_REQUEST["change"]))
+
+if(!isset($_REQUEST["change"])){
+    $mysql = pdodb::getInstance();
+    $mysql->Prepare("select * from sadaf.profile where userId=?");
+    $res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
+
+    if ($trec = $res->fetch()) {
+        $userId = $trec['userId'];
+        $name = $trec['name'];
+        $username = $trec['username'];
+        $profimage = $trec['profileimage'];
+        $bio = $trec["bio"];
+
+        $oldUsername = $username;
+
+        $mysql->Prepare("select * from sadaf.user where userId=?");
+        $res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
+        if ($trec = $res->fetch()) {
+            $email = $trec['email'];
+            $oldEmail = $email;
+        }
+    } else
+        $message_array[0] = "This person is not valid.";
+}
+
+elseif(isset($_REQUEST["change"]))
 {
+    $message_array[5]= "succes";
     $username = $_REQUEST["UserName"];
-//    $password = $_REQUEST["UserPassword"];
-//    $password_repeat = $_REQUEST["UserPasswordRepeat"];
     $name = $_REQUEST["name"];
+    $bio = $_REQUEST['bio'];
+    $email = $_REQUEST['email'];
 
 
     if (!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
@@ -80,36 +99,23 @@ if(isset($_REQUEST["change"]))
         $validation = false;
     }
 
-//    if (!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
-//        $message_array[2] = "Password must have 8 characters at least that include uppercase, lowercase & numbers.";
-//        $validation = false;
-//    }
-//
-//    if ($password != $password_repeat){
-//        $message_array[3] = "Password & repeat password aren't same.";
-//        $validation = false;
-//    }
-
+    $mysql = pdodb::getInstance();
     $mysql->Prepare("Select username from sadaf.user where username = ? OR email = ?");
     $res = $mysql->ExecuteStatement(array($username, $email));
 
     if($trec = $res->fetch())
     {
         if($trec['email'] == $email and $trec['email'] != $oldEmail){
-            $message_array[4] = "This email address is already registered.";
+            $message_array[2] = "This email address is already registered.";
             $validation = false;
         }
         if($trec['username'] == $username and $trec['username'] != $oldUsername){
-            $message_array[5] = "This username is already registered.";
+            $message_array[3] = "This username is already registered.";
             $validation = false;
         }
     }
     if($validation){
-
-        $mysql = pdodb::getInstance();
-
-        $mysql->Prepare("UPDATE sadaf.profile SET
-						    (username, name, bio) values (?, ?, ?) where userId = ?");
+        $mysql->Prepare("UPDATE `profile` SET `username`=?,`name`=?,`bio`=? WHERE userId = ?");
         $res = $mysql->ExecuteStatement(array($username, $name, $bio, $_SESSION['UserID']));
 
         $mysql->Prepare("Select userid from sadaf.profile
@@ -120,28 +126,29 @@ if(isset($_REQUEST["change"]))
 
         if($trec = $res->fetch())
         {
-//            $password_hashed = md5($password);
 
-            $mysql->Prepare("UPDATE sadaf.user SET (username, email) values (?, ?)");
-            $res = $mysql->ExecuteStatement(array($username, $email));
+            $mysql->Prepare("UPDATE sadaf.user SET `username`=?, `email`=? where userId = ?");
+            $res = $mysql->ExecuteStatement(array($username, $email, $_SESSION['UserID']));
 
-            $mysql->Prepare("UPDATE sadaf.post SET (username) values (?)");
-            $res = $mysql->ExecuteStatement(array($username));
+            $mysql->Prepare("UPDATE sadaf.post SET `username`=? where userId = ?");
+            $res = $mysql->ExecuteStatement(array($username, $_SESSION['UserID']));
 
-            $mysql->Prepare("UPDATE sadaf.likes SET (username) values (?)");
-            $res = $mysql->ExecuteStatement(array($username));
+            $mysql->Prepare("UPDATE sadaf.likes SET `username`=? where userId = ?");
+            $res = $mysql->ExecuteStatement(array($username, $_SESSION['UserID']));
         }
 
-        $_SESSION['UserID'] = $userId;
         $_SESSION["UserName"] = $username;
         $_SESSION["UserEmail"] = $email;
 
         header("Location: main.php");
         die();
     }
-    function erase_val(&$myarr) {
-        $myarr = array_map(create_function('$n', 'return null;'), $myarr);
-    }
+
+}else{
+    $message_array[4] = "dont";
+}
+function erase_val(&$myarr) {
+    $myarr = array_map(create_function('$n', 'return null;'), $myarr);
 }
 
 
@@ -149,6 +156,19 @@ if(isset($_REQUEST["change"]))
 
 <body style="background-color:rgb(230, 252, 252) ">
 <?php include("header-top.php")?>
+<div class="container-fluid">
+    <? if($message_array) {
+    foreach($message_array as $msg){
+    ?>
+    <div class="row">
+        <div class="col-1" ></div>
+        <div class="col-10" >
+            <div class="alert alert-danger well" role="alert"><?php echo $msg; ?></div>
+        </div>
+        <div class="col-1" ></div>
+    </div>
+</div>
+<? }} ?>
 
 <div class="w-100" style="height:70px;"></div>
 <div class=" d-flex" style="direction:rtl;: left">
@@ -188,7 +208,7 @@ if(isset($_REQUEST["change"]))
 
             <div class="wrap-input100 validate-input m-b-26">
                 <span class="label-input100">Bio</span>
-                <input class="input100" type="text" name="Bio" id="Bio" placeholder="Enter bio" value="<?php echo $bio; ?>">
+                <input class="input100" type="text" name="bio" id="bio" placeholder="Enter bio" value="<?php echo $bio; ?>">
                 <span class="focus-input100"></span>
             </div>
 
@@ -198,12 +218,14 @@ if(isset($_REQUEST["change"]))
                 <span class="focus-input100"></span>
             </div>
 
-            <div class="container-login100-form-btn">
-                <button name="change" type="submit" class="login100-form-btn" onclick=<?php
-                erase_val($message_array); ?>>
-                    Apply
-                </button>
-
+            <div class="flex-sb-m w-full p-b-30">
+                <div class="container-login100-form-btn">
+                    <button name="change" value="upload" type="submit" class="login100-form-btn" onclick=<?php
+                    erase_val($message_array);
+                    ?>>
+                        Apply
+                    </button>
+                </div>
             </div>
         </form>
     </div>
@@ -227,5 +249,3 @@ if(isset($_REQUEST["change"]))
 <script src="loginStyle/js/main.js"></script>
 
 </body>
-
-</html>
