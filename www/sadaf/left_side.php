@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<div class="col-2 side" style="direction: ltr;position: fixed;left: 0; ">
+<div class="col-2 side" style="direction: ltr;position: fixed;left:-40px; top: 100px; ">
             <div class="pl-5 ml-3 mt-1">
                 <a href="">
                     <div class="d-flex menu">
