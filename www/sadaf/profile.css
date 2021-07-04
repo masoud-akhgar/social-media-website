@@ -70,7 +70,7 @@ html {
     position: absolute;
     margin-left: 140px;
     top: 140px;
-    background: #2973c2;
+    /* background: #2973c2; */
     padding: 5px;
     border-radius: 10px;
     font-size: 13pt;
@@ -89,7 +89,7 @@ html {
 
 .follow:hover {
     transition: 0.5s;
-    background: #0079FA;
+    /* background: #0079FA; */
 }
 
 .add-frnd:hover {
