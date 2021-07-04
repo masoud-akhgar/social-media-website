@@ -130,7 +130,7 @@ while($trec = $res->fetch())
 
 ?>
 
-<body style="background-color:rgb(230, 252, 252) ">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 
 <div class="w-100" style="height:70px;"></div>

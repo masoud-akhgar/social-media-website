@@ -154,7 +154,7 @@ function erase_val(&$myarr) {
 
 ?>
 
-<body style="background-color:rgb(230, 252, 252) ">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 <div class="container-fluid">
     <? if($message_array) {
