@@ -56,7 +56,7 @@ $username = $_SESSION["UserID"];
                 <form class="login100-form validate-form" action="uploadPost.php" method="post" enctype="multipart/form-data">
                     <div class="wrap-input100 validate-input m-b-26">
                         <p> Select Image File to Upload: </p>
-                        <input class="input100" type="file" name="image" id="image" placeholder="Image">
+                        <input type="file" name="image" id="image" placeholder="Image">
                         <span class="focus-input100"></span>
                     </div>
 

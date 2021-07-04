@@ -6,14 +6,14 @@ session_start();
                 <a href="">
                     <div class="d-flex menu">
                         <img src="./images/profile.png">
-                        <p class="ml-2"><a href="profile.php?user=<? echo $_SESSION['UserId']; ?>">See Your Profile</a></p>
+                        <p class="ml-2"><a href="profile.php?user=<? echo $_SESSION['UserID']; ?>">See Your Profile</a></p>
 
                     </div>
                 </a>
                 <a href="">
                     <div class="d-flex menu">
                         <img src="./images/profile.png">
-                        <p class="ml-2"><a href="profile.php">Update Your Info</a></p>
+                        <p class="ml-2"><a href="setting.php">Update Your Info</a></p>
 
                     </div>
                 </a>
@@ -21,31 +21,31 @@ session_start();
                     <div class="d-flex menu">
 
                         <img src="./images/profile.png">
-                        <p class="ml-2"><a href="profile.php">Change Your Photo People See</a></p>
+                        <p class="ml-2"><a href="ChangeProfImg.php">Change Your Photo People See</a></p>
 
                     </div>
-                    <a href="">
-                        <div class="d-flex menu">
-                            <img src="./images/profile.png">
-                            <p class="ml-2"><a href="profile.php">Change Bio</a></p>
-
-                        </div>
-                    </a>
-                    <p style="font-weight: bold" class="mt-3">community</p>
-                    <a href="">
-                        <div class="d-flex menu">
-                            <img src="./images/profile.png">
-                            <p class="ml-2"><a href="profile.php">See Your Followers</a></p>
-
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="d-flex menu">
-                            <img src="./images/profile.png">
-                            <p class="ml-2"><a href="profile.php">See Your follows</a></p>
-
-                        </div>
-                    </a>
+<!--                    <a href="">-->
+<!--                        <div class="d-flex menu">-->
+<!--                            <img src="./images/profile.png">-->
+<!--                            <p class="ml-2"><a href="profile.php">Change Bio</a></p>-->
+<!---->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <p style="font-weight: bold" class="mt-3">community</p>-->
+<!--                    <a href="">-->
+<!--                        <div class="d-flex menu">-->
+<!--                            <img src="./images/profile.png">-->
+<!--                            <p class="ml-2"><a href="profile.php">See Your Followers</a></p>-->
+<!---->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <a href="">-->
+<!--                        <div class="d-flex menu">-->
+<!--                            <img src="./images/profile.png">-->
+<!--                            <p class="ml-2"><a href="profile.php">See Your follows</a></p>-->
+<!---->
+<!--                        </div>-->
+<!--                    </a>-->
                     <p style="font-weight: bold" class="mt-3">Manage Account</p>
                     <a href="">
                         <div class="d-flex menu">
@@ -61,17 +61,17 @@ session_start();
 
                         </div>
                     </a>
+<!--                    <a href="">-->
+<!--                        <div class="d-flex menu">-->
+<!--                            <img src="./images/profile.png">-->
+<!--                            <p class="ml-2"><a href="profile.php">Set Username</a></p>-->
+<!---->
+<!--                        </div>-->
+<!--                    </a>-->
                     <a href="">
                         <div class="d-flex menu">
                             <img src="./images/profile.png">
-                            <p class="ml-2"><a href="profile.php">Set Username</a></p>
-
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="d-flex menu">
-                            <img src="./images/profile.png">
-                            <p class="ml-2"><a href="profile.php">Change Your Password</a></p>
+                            <p class="ml-2"><a href="ChangePassword.php">Change Your Password</a></p>
 
                         </div>
                     </a>
