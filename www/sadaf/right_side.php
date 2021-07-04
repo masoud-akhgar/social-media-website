@@ -17,7 +17,7 @@
         </div>
         <div class=" mt-2">
             <div>
-                <form class="row" action="" method="GET">
+                <form class="row" action="" method="post">
                     <div class="form-group col-auto">
                     <input type="submit" name="submit" class="search-btn btn btn-primary-myself float-left text-white p-2" value="Search" />
                     <input type="text" name="query" placeholder="search for users" class="col-8 p-2 text-left" style="width: 200px" />
@@ -28,10 +28,10 @@
             <div class="search">
                 <?php
 
-                if(isset($_GET['submit'])){
+                if(isset($_POST['submit'])){
 
-                    if(!empty($_GET['query'])) {
-                        $query = $_GET['query'];
+                    if(!empty($_POST['query'])) {
+                        $query = $_POST['query'];
                         $mysql = pdodb::getInstance();
                         $res = $mysql->Execute("select * from sadaf.user where username like '%$query%' ");
                     }
@@ -42,7 +42,7 @@
                         ?>
                         <div class='d-flex mt-2'>
                             <div class='col-9 ' >
-                                <a href="profile.php?user=<?echo $rec2['username']?>"><p class="mt-1"><?echo $rec2['username']?>@</p></a>
+                                <a href="profile.php?user=<?echo $rec2['userId']?>"><p class="mt-1"><?echo $rec2['username']?>@</p></a>
                             </div>
                         </div>
 <?
