@@ -176,9 +176,6 @@ function erase_val(&$myarr) {
 </div>
 <div class="profile2">
     <div class="profile2-banner">
-        <div class="text-center content-middle">
-            <b><?php echo $bio ?> </b>
-        </div>
     </div>
 
     <div class="profile2-picture">
@@ -187,6 +184,7 @@ function erase_val(&$myarr) {
         <?php echo "<span> $name </span>"?>
         <br>
         <?php echo "<small> ($username) </small>"?>
+        <small class="w-100"><?php echo $bio ?></small>
         <br>
     </div>
 

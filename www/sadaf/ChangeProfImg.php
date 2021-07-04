@@ -73,9 +73,6 @@ if ($trec = $res->fetch()) {
 </div>
 <div class="profile2">
     <div class="profile2-banner">
-        <div class="text-center content-middle">
-            <b><?php echo $bio ?> </b>
-        </div>
     </div>
 
     <div class="profile2-picture">
@@ -84,6 +81,8 @@ if ($trec = $res->fetch()) {
         <?php echo "<span> $name </span>"?>
         <br>
         <?php echo "<small> ($username) </small>"?>
+        <small class="w-100"><?php echo $bio ?></small>
+
         <br>
     </div>
 
