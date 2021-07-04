@@ -1,100 +1,194 @@
 <?php
-	// Programmer: Omid Milanifard 
-	// در این نسخه از چارچوب نرم افزاری کلمه عبور به صورت متن خام ذخیره شده است
-	// برای نسخه های عملیاتی حتما از رمزنگاری مناسب استفاده شود - مثال: md5
-	
-	include("header.inc.php");
-	HTMLBegin();
-	$UnitCode = 0;
-	$mysql = dbclass::getInstance();
-	if(isset($_REQUEST["NewPass"]))
-	{
-		$query = "select * from sadaf.AccountSpecs where UserID='".$_SESSION["UserID"]."' and UserPassword='".$_REQUEST["OldPass"]."'";
-		$res = $mysql->Execute($query);
-		if($rec = $res->FetchRow())
-		{
-			$query = "update sadaf.AccountSpecs set UserPassword='".$_REQUEST["NewPass"]."' where UserID='".$_SESSION["UserID"]."'";
-			$mysql->Execute($query);
-			echo "<p align=center><font color=green>اطلاعات ذخیره شد</font></p>";
-		}
-		else
-			echo "<p align=center><font color=red>کلمه عبور فعلی نادرست وارد شده است</font></p>";
-	}
+session_start();
 ?>
-<br>
-<form method=post name=f1 id=f1 enctype='multipart/form-data'>
-<?php if(isset($_REQUEST["PersonID"])) { ?>
-<inut type=hidden name=PersonID id=PersonID value='<?php echo $_REQUEST["PersonID"] ?>'>
-<?php } ?>
+
+<!doctype html>
+<head>
+    <title>ChangePassword</title>
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
+    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
+    <!--===============================================================================================-->
+</head>
+<?php
+include "sys_config.class.php";
+require_once "DateUtils.inc.php";
+require_once "SharedClass.class.php";
+require_once "UI.inc.php";
+
+
+$message = "";
+$validation = true;
+
+if(isset($_REQUEST["next"]))
+{
+    $mysql = pdodb::getInstance();
+    $mysql->Prepare("select * from sadaf.user where userId=? and pass=?");
+
+    $res = $mysql->ExecuteStatement(array($_SESSION["UserID"], ($_REQUEST["UserPassword"])));
+    if($trec = $res->fetch())
+    {
+        $_SESSION["UserName"] = $trec["username"];
+        $_SESSION["SystemCode"] = 0;
+        $_SESSION["LIPAddress"] = ip2long(SharedClass::getRealIpAddr());
+        if($_SESSION["LIPAddress"]=="") {
+            $_SESSION["LIPAddress"] = 0;
+        }
+        header("Location: ChangePassword.php?verified");
+        die();
+    }
+    else
+        $message = "Username or password is incorrect.";
+}
+
+if(isset($_REQUEST["change"]))
+{
+    $password = $_REQUEST["NewPassword"];
+    $password_repeat = $_REQUEST["RepeatPassword"];
+
+    // check format of password
+    if (!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
+        $message = "Password must have 8 characters at least that include uppercase, lowercase & numbers.";
+        $validation = false;
+    }
+
+    // check password & re-password are same
+    elseif ($password != $password_repeat){
+        $message = "Password & repeat password aren't same.";
+        $validation = false;
+    }
+
+    if($validation){
+        $password_hashed = md5($password);
+
+        $mysql = pdodb::getInstance();
+        $mysql->Prepare("UPDATE sadaf.user SET pass = ? where userId = ?");
+        $res = $mysql->ExecuteStatement(array($password, $_SESSION['UserID']));
+        header("Location: main.php");
+    }
+}
+?>
+
+
+<body>
+<?php include("header-top.php")?>
+
 <div class="container-fluid">
-<div class="row">
-<div class="col-1" ></div>
-<div class="col-10" >
+    <? if($message!="") { ?>
+    <div class="row">
+        <div class="col-1" ></div>
+        <div class="col-10" >
+            <div class="alert alert-danger well" role="alert"><?php echo $message; ?></div>
+        </div>
+        <div class="col-1" ></div>
+    </div>
+</div>
+<? } ?>
 
-<table class="table table-bordered" align="center">
-<tr>
-<td>
-	<table class="table table-sm table-borderless">
-	<tr>
-		<td colspan=2 class=HeaderOfTable>
-		تغییر کلمه عبور
-		</td>
-	</tr>
-	<tr>
-		<td>
-		کلمه عبور فعلی: 
-		</td>
-		<td>
-		<input class="form-control" name=OldPass type=password size=40 maxlength=200 value=''>
-		</td>
-	</tr>
-	<tr>
-		<td nowrap>
-		کلمه عبور جدید: 
-		</td>
-		<td>
-		<input class="form-control" name=NewPass type=password size=40 maxlength=200 value=''>
-		</td>
-	</tr>
-	<tr>
-		<td nowrap>
-		تکرار کلمه عبور جدید:  
-		</td>
-		<td>
-		<input class="form-control" name=ConfirmPass type=password size=40 maxlength=200 value=''>
-		</td>
-	</tr>
-	<tr>
-		<td colspan=2 align=center class=FooterOfTable>
-			<input type=button class="btn btn-info" value='اعمال' onclick='javascript: CheckValidity();'>
-		</td>
-	</tr>
-	</table>
-</td>
-</tr>
-</table>
-<br>
-<?php if(isset($_REQUEST["PersonID"]) && !isset($_REQUEST["pfname"])) { ?>
-<input type=hidden name=PersonID id=PersonID value='<?php echo $_REQUEST["PersonID"] ?>'>
-<?php } ?>
-</form>
-<script>
-	function CheckValidity()
-	{
-		if(f1.NewPass.value=="")
-		{
-			alert("کلمه عبور را ثبت نکرده اید");
-			return;
-		}
-		if(f1.NewPass.value!=f1.ConfirmPass.value)
-		{
-			alert("کلمه عبور جدید با تکرار آن یکی نیست");
-			return;
-		}
-		f1.submit();
-	}
-</script>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title" style="background-image: url(loginStyle/images/bg-01.jpg);">
+                        <span class="login100-form-title-1">
+                            Change Password
+                        </span>
+            </div>
 
-<?
-	HTMLEnd();
-?>
+            <form class="login100-form validate-form" method="post">
+
+                <?php
+                $buttonName = "next";
+                $button = "Next";
+                if(isset($_GET["verified"])){
+                    $buttonName = "change";
+                    $button = "Apply";
+                    ?>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+                        <span class="label-input100">New Password</span>
+                        <input class="input100" type="password" name="NewPassword" id="NewPassword" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+                        <span class="label-input100">Re-Password</span>
+                        <input class="input100" type="password" name="RepeatPassword" id="RepeatPassword" placeholder="Enter re-password">
+                        <span class="focus-input100"></span>
+                    </div>
+                <?php } else{ ?>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="UserPassword" id="UserPassword" placeholder="Enter password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="flex-sb-m w-full p-b-30">
+
+                        <?php
+                        if(isset($_GET["newpwd"])){
+                            if($_GET["newpwd"] == "passwordupdated"){
+                                echo "<p class=''>Your password has been reset!</p>";
+                            }
+                        }
+                        ?>
+
+                        <!-- redirect to password reset page -->
+                        <div>
+                            <a href="forgottenpwd/reset-password.php" class="txt1">
+                                Forgot Password?
+                            </a>
+                        </div>
+                    </div>
+                <?php } ?>
+
+                <div class="flex-sb-m w-full p-b-30">
+                    <div class="container-login100-form-btn">
+                        <button name="<?php echo $buttonName?>" type="submit" class="login100-form-btn">
+                            <?php echo $button?>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/bootstrap/js/popper.js"></script>
+<script src="loginStyle/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/daterangepicker/moment.min.js"></script>
+<script src="loginStyle/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="loginStyle/js/main.js"></script>
+
+</body>
