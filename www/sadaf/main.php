@@ -1,5 +1,10 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 include('header.inc.php');
+require '../../vendor/autoload.php';
+
 $mysql = pdodb::getInstance();
 $userid = $_SESSION['UserID'];
 $result = $mysql->Execute("SELECT * FROM sadaf.user WHERE userId=$userid");
@@ -43,6 +48,42 @@ if (isset($_POST['unfollow'])) {
     $postid = $_POST['userid'];
     $mysql->Execute("DELETE  FROM `follow` where `followingId` = '".$userid."' and `followedId` ='".$postid."';");
     exit();
+}
+
+if(isset($_POST["sendEmail"])){
+
+
+    $url = "localhost/social-media/www/sadaf/login.php";
+    $userEmail = $_POST['email'];
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->SMTPDebug = 2;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com;';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'sosomedia11@gmail.com';
+        $mail->Password   = 'sosomedia123456';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->setFrom('sosomedia11@gmail.com', 'soso');
+        $mail->addAddress($userEmail);
+
+        $mail->isHTML(true);
+        $userName = $username['username'];
+        $mail->Subject = 'invite a friend';
+        $message = "<p>Hey, I have been using SoSo for a while and it is fun! Join this community to take advantage of its features and services.</p><p>From:";
+        $message .= "<p>$userName</p>";
+        $message .= "<p>Here is our site:</p>";
+        $message .= '<a href='.$url.'>'.$url.'</a></p>';
+        $mail->Body    = $message;
+        $mail->send();
+        header("Location: main.php?invite=success");
+        exit();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
 
 ?>
@@ -143,14 +184,16 @@ if (isset($_POST['unfollow'])) {
                 </div>
             <?}?>
         </div>
-        <div class="bg-white p-1 px-3 shadow-left div-radius mt-3">
-            <p class="titer">Invite your Friends</p>
-            <div class=" border border-1 border-black w-100" style="min-height:40px;">
-                <input placeholder="E-Mali" class="w-100 Mali pl-1" style="min-height:40px;">
-                <a href="" class="btn-primary-myself send pt-1"><i class="fa fa-send text-white mt-1" style="font-size: 20px;"></i></a>
+        <form method="post">
+            <div class="bg-white p-1 px-3 shadow-left div-radius mt-3">
+                <p class="titer">Invite your Friends</p>
+                <div class=" border border-1 border-black w-100" style="min-height:40px;">
+                    <input name="email" id="email" placeholder="E-Mali" class="w-100 Mali pl-1" style="min-height:40px;">
+                    <button type="submit" name="sendEmail" class="btn-primary-myself send pt-1"><i class="fa fa-send text-white mt-1" style="font-size: 20px;"></i></button>
+                </div>
+                <!-- <img src="asset/images/send.png" style="height: 100%;"> -->
             </div>
-            <!-- <img src="asset/images/send.png" style="height: 100%;"> -->
-        </div>
+        </form>
 
     </div>
     <div class="col-5" style="direction: ltr;">
