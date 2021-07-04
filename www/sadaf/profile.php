@@ -139,9 +139,6 @@ while($trec = $res->fetch())
 </div>
 <div class="profile2">
     <div class="profile2-banner">
-        <div class="text-center content-middle">
-            <b><?php echo $bio ?> </b>
-        </div>
     </div>
 
     <div class="profile2-picture">
@@ -151,21 +148,16 @@ while($trec = $res->fetch())
             <?php $followed = 'true'; }elseif ((!empty($followed)) and $followed === 'true') { ?>
             <button class="unfollowing follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $userId?>">Followed</button>
             <?php $followed = 'false'; } ?>
-                <p class="follow btn btn-success text-white" style="margin-left:-140px;font-size:12px;">Following : 123</p>
-                <p class="follow btn btn-success text-white mt-5" style="margin-left:-140px;font-size:12px;">Followers : 133</p>
+        <p class="follow btn btn-secondary text-white" style="margin-left:-140px;font-size:12px;">Following : <?php echo $followingNumber?></p>
+        <p class="follow btn btn-secondary text-white mt-5" style="margin-left:-140px;font-size:12px;">Followers : <?php echo $followerNumber?></p>
         <?php echo "<a href=''><img src= $profimage ></a>"?>
-        
+
         <?php echo "<span> $name </span>"?>
-        
+
         <br>
         <?php echo "<small> ($username) </small>"?>
-        <small class="w-100">Bio located here blablablablblb bal</small>
+        <small class="w-100"><?php echo $bio ?></small>
 
-    </div>
-
-    <div >
-        <p> followers:<?php echo $followerNumber?></p>
-        <p> followings:<?php echo $followingNumber?></p>
     </div>
 
     <div class="profile2-content mt-5">
