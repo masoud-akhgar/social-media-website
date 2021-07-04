@@ -13,7 +13,7 @@ $statusMsg = '';
 
 
 // File upload path
-$targetDir = "profileImg/";
+$targetDir = "./profileImg/";
 $fileName = basename($_FILES["image"]["name"]);
 $targetFilePath = $targetDir . $fileName;
 $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -36,10 +36,9 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
             if($trec = $res->fetch())
             {
                 session_start();
-                $_SESSION["UserName"] = $trec["username"];
 
-                $mysql->Prepare("Insert into sadaf.profile (profileimage) values (?) where userId = ?");
-                $res = $mysql->ExecuteStatement(array( $fileName, $_SESSION['UserID']));
+                $mysql->Prepare("UPDATE sadaf.profile SET `profileimage`=? where userId = ?");
+                $res = $mysql->ExecuteStatement(array($targetFilePath, $_SESSION['UserID']));
                 if($res){
                     $statusMsg = "The photo ".$fileName. " has been uploaded successfully.";
                 }else{
@@ -55,7 +54,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
         $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
     }
 }else{
-    $statusMsg = 'Please select a file to upload.';
+    $statusMsg = 'hojjat';
 }
 
 // Display status message
