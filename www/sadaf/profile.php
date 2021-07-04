@@ -62,15 +62,16 @@ if (isset($_POST['unliked'])) {
             </div>
             <div class="profile2-picture">
                 <a href="" class="follow text-white">Follow <span class="entypo-plus"></span></a>
-                <a href="" class="follow text-white" style="margin-left:-140px;">Following</a>
-                <a href="" class="follow text-white" style="margin-left:-280px;">Followers</a>
+                <p class="follow text-white" style="margin-left:-140px;font-size:12px;">Following : 123</p>
+                <p class="follow text-white" style="margin-left:-280px;font-size:12px;">Followers : 133</p>
                 <a href=""><img src="https://i.pravatar.cc/300?img=7"></a>
                 <span>Daniel Jack</span>
                 <br>
                 <small>(Jack Daniel)</small>
+                <small class="w-100">Bio located here blablablablblb bal</small>
             </div>
 
-            <div class="profile2-content">
+            <div class="profile2-content mt-5">
                 <div class="content-middle">
                     <div class="content-md-left">
                         <img src="https://i.pravatar.cc/300?img=7">
