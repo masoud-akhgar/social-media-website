@@ -1,8 +1,9 @@
 <?php
 include('header.inc.php');
+session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -14,111 +15,118 @@ include('header.inc.php');
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" type="" href="../bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
     <link rel="stylesheet" href="profile.css">
+    <script src="../jquery/jquery-3.4.1.min.js.txt"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="loginStyle/images/icons/favicon.ico"/>
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/animsition/css/animsition.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/vendor/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/util.css">
-    <link rel="stylesheet" type="text/css" href="loginStyle/css/style.css">
-    <!--===============================================================================================-->
+    <link rel="stylesheet" href="styles.css">
+    <script src="right_script.js"></script>
 </head>
-
 <?php
 
-$mysql = pdodb::getInstance();
-$mysql->Prepare("select * from sadaf.profile where userId=?");
-$res = $mysql->ExecuteStatement(array($_SESSION['UserID']));
+$id_post = array();
+$img_post = array();
+$caption_post = array();
+$likes = array();
+$comment_size = array();
 
-if ($trec = $res->fetch()) {
-    $userId = $trec['userId'];
-    $name = $trec['name'];
-    $username = $trec['username'];
-    $profimage = $trec['profileimage'];
-    $bio = $trec["bio"];
-} else
-    $message = "This person is not valid.";
+$followingNumber = 0;
+$followerNumber = 0;
 
-if(isset($_REQUEST["change"]))
-{
-    $username = $_REQUEST["UserName"];
-    $password = $_REQUEST["UserPassword"];
-    $password_repeat = $_REQUEST["UserPasswordRepeat"];
-    $fname = $_REQUEST["fname"];
+$followed = '';
+$counter = 0;
+$name = '';
+$userId = '';
+$profimage = '';
+$bio = '';
 
+$cnt = array();
+if(isset($_GET['user']) and is_numeric($_GET['user'])) {
+    $mysql = pdodb::getInstance();
+    $mysql->Prepare("select * from sadaf.profile where userId=?");
+    $res = $mysql->ExecuteStatement(array($_GET['user']));
 
-    if (!preg_match('/^[a-zA-Z0-9]{4,}$/', $username)){
-        $message_array[1] = "Username must have 4 characters at least.";
-        $validation = false;
-    }
+    if ($trec = $res->fetch()) {
+        $userId = $trec['userId'];
+        $name = $trec['name'];
+        $username = $trec['username'];
+        $profimage = $trec['profileimage'];
+        $bio = $trec["bio"];
+        if($_SESSION['UserID'] != $_GET['user']) {
+            $mysql->Prepare("select * from sadaf.follow where followingId=? and followedId=? ");
+            $res = $mysql->ExecuteStatement(array($_SESSION['UserID'], $userId));
 
-    if (!preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password)){
-        $message_array[2] = "Password must have 8 characters at least that include uppercase, lowercase & numbers.";
-        $validation = false;
-    }
-
-    if ($password != $password_repeat){
-        $message_array[3] = "Password & repeat password aren't same.";
-        $validation = false;
-    }
-
-    $mysql->Prepare("Select username from sadaf.user where username = ? and userId != ?");
-    $res = $mysql->ExecuteStatement(array($username, $_SESSION['UserID']));
-
-    if($trec = $res->fetch())
-    {
-        if($trec['username'] == $username){
-            $message_array[5] = "This username is already registered.";
-            $validation = false;
+            if ($trec = $res->fetch()) {
+                $followed = 'true';
+            } else {
+                $followed = 'false';
+            }
         }
-    }
-    if($validation){
-
-        $mysql = pdodb::getInstance();
-
-        $mysql->Prepare("UPDATE sadaf.profile SET
-						    (username, name, bio) values (?, ?, ?)");
-        $res = $mysql->ExecuteStatement(array($username, $fname, "hello i'm ".$fname));
-
-        $mysql->Prepare("Select userid from sadaf.profile
-						    where name=? and username=?");
-        $res = $mysql->ExecuteStatement(array($fname, $username));
-
-
-
-        if($trec = $res->fetch())
-        {
-            $password_hashed = md5($password);
-
-            $mysql->Prepare("Insert into sadaf.user (username, pass) values (?, ?)");
-            $res = $mysql->ExecuteStatement(array($username, $password));
-        }
-
-        $_SESSION["UserName"] = $username;
-        header("Location: main.php");
-        die();
-    }
+    } else
+        $message = "This person is not valid.";
 }
 
+if (isset($_POST['follow'])) {
+    $mysql->Prepare("INSERT INTO `follow` (`followingId`, `followedId`) VALUES (?, ?);");
+    $res = $mysql->ExecuteStatement(array($_SESSION['UserID'], $userId));
+    exit();
+}
+
+if (isset($_POST['unfollow'])) {
+    $mysql->Prepare("DELETE  FROM `follow` where `followingId` = ? and `followedId` = ? ;");
+    $res = $mysql->ExecuteStatement(array($_SESSION['UserID'], $userId));
+    exit();
+}
+
+// comment
+if (isset($_POST['iscomment'])) {
+    $postid = $_POST['postid'];
+    $text = $_POST['text'];
+    $mysql->Prepare("INSERT INTO sadaf.comment (username, userId, postId, comment) VALUES (?, ?, ?, ?)");
+    $res = $mysql->ExecuteStatement(array($_SESSION['UserName'], $_SESSION['UserID'], $postid, $text));
+    exit();
+}
+
+$mysql->Prepare("select count(*) from sadaf.follow where followingId=?");
+$res = $mysql->ExecuteStatement(array($userId));
+if ($frec = $res->fetch()) {
+    $followingNumber = $frec['count(*)'];
+}
+
+$mysql->Prepare("select count(*) from sadaf.follow where followedId=?");
+$res = $mysql->ExecuteStatement(array($userId));
+if ($frec = $res->fetch()) {
+    $followerNumber = $frec['count(*)'];
+}
+$user = '';
+$mysql->Prepare("select * from sadaf.post where userId=?");
+$res = $mysql->ExecuteStatement(array($userId));
+
+while($trec = $res->fetch())
+{
+    array_push($id_post, $trec['postId']);
+    array_push($img_post, $trec['image']);
+    array_push($caption_post, $trec['text']);
+
+    $mysql->Prepare("select count(*) from sadaf.likes where postId=?");
+    $res = $mysql->ExecuteStatement(array($trec['postId']));
+    if ($frec = $res->fetch()) {
+        array_push($likes, $frec['count(*)']);
+    }
+
+    $mysql->Prepare("select count(*) from sadaf.comment where postId=?");
+    $res = $mysql->ExecuteStatement(array($trec['postId']));
+    if ($crec = $res->fetch()) {
+        array_push($comment_size, $crec['count(*)']);
+    }
+
+    // liked by user or not
+    $mysql->Prepare( "SELECT * FROM sadaf.likes WHERE userId=? AND postId=?");
+    $res = $mysql->ExecuteStatement(array($_SESSION['UserID'], $trec['postId']));
+    array_push($cnt, intval(count($res->fetch())));
+
+}
 
 ?>
 
@@ -137,81 +145,266 @@ if(isset($_REQUEST["change"]))
     </div>
 
     <div class="profile2-picture">
+
+        <?php if ((!empty($followed)) and $followed === 'false') { ?>
+            <button class="following follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $userId?>">Follow</button>
+            <?php $followed = 'true'; }elseif ((!empty($followed)) and $followed === 'true') { ?>
+            <button class="unfollowing follow btn btn-primary py-1 shadow-bottom" data-id = "<? echo $userId?>">Followed</button>
+            <?php $followed = 'false'; } ?>
         <?php echo "<a href=''><img src= $profimage ></a>"?>
 
         <?php echo "<span> $name </span>"?>
         <br>
         <?php echo "<small> ($username) </small>"?>
-        <br>
     </div>
 
-    <div class="wrap-login100 shadow-bottom">
-        <form class="login100-form validate-form" method="post">
-            <div class="wrap-input100 validate-input m-b-26" data-validate="Name is required">
-                <span class="label-input100">Name</span>
-                <input class="input100" type="text" name="fname" id="fname" placeholder="Enter name" value= <?php
-                echo $fname;
-                ?>>
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-                <span class="label-input100">Username</span>
-                <input class="input100" type="text" name="UserName" id="UserName" placeholder="Enter username" value=<?php echo $_SESSION["UserName"]; ?>>
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input m-b-26">
-                <span class="label-input100">Bio</span>
-                <input class="input100" type="text" name="Bio" id="Bio" placeholder="Enter bio" value=<?php echo $bio; ?>>
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-                <span class="label-input100">Password</span>
-                <input class="input100" type="password" name="UserPassword" id="UserPassword" placeholder="Enter password" value=<?php
-                echo $password;
-                ?>>
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="wrap-input100 validate-input m-b-18" data-validate = "Repeat Password is required">
-                <span class="label-input100">Re-Password</span>
-                <input class="input100" type="password" name="UserPasswordRepeat" id="UserPasswordRepeat" placeholder="Enter re-password" value=<?php
-                echo $password_repeat;
-                ?>>
-                <span class="focus-input100"></span>
-            </div>
-
-            <div class="container-login100-form-btn">
-                <button name="change" type="submit" class="login100-form-btn" onclick=<?php
-                erase_val($message_array);
-                ?>>
-                    Register
-                </button>
-            </div>
-        </form>
+    <div >
+        <p> followers:<?php echo $followerNumber?></p>
+        <p> followings:<?php echo $followingNumber?></p>
     </div>
 
+    <div class="profile2-content">
+        <div class="content-middle">
+            <div class="content-md-left">
+                <?php echo "<a href=''><img src= $profimage ></a>"?>
+            </div>
+            <div class="content-md-middle">
+                <div class="post-title-name">
+                    <?php echo "<a href='post.php'> $name </a>" ?>
+                    <br>
+                    <?php echo "<small> ($username) </small>"?>
+                </div>
+                <!--                        <div class="post-title-time">-->
+                <!--                            <a href="post.php">Saturday 13:52</a>-->
+                <!--                        </div>-->
+                <?php for ($i=0; $i<sizeof($caption_post); $i++) { ?>
+                    <div class="mt-3 bg-white  px-2 py-2 shadow-bottom div-radius-tr div-radius-tl post pl-4">
+                        <div class="post-desc">
+                            <p style=" font-family: 'byekan'; font-size:25px;text-align: right; direction: rtl; font-size: 20px;opacity:0.8">
+                                <?php echo $caption_post[$i] ?>
+                            </p>
+                            <br>
+                            <?php if (!empty($img_post[$i])) echo "<img src='./postImg/$img_post[$i]' class='w-100'>"?>
+
+                        </div>
+                        <div class="mt-5 bg-white w-100 px-2 py-2 shadow-bottom post pl-4">
+
+                            <?php echo "<p class='d-inline' style='font-size: 14px;'>like $likes[$i] comment $comment_size[$i]</p>" ?>
+                            <form method="post">
+                                <div class="w-100">
+                                    <div class=" kadr w-100 d-flex post-detail">
+                                        <p class="text-right detail">
+                                            <? if ($cnt[$i] > 1){ ?>
+                                                <span class="unlike fa fa-heart fa-lg"  style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                                <span class="like hide fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                            <? }else{ ?>
+                                                <!-- user has not yet liked post -->
+                                                <span class="like fa fa-heart-o fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                                <span class="unlike hide fa fa-heart fa-lg" style="color: red" data-id="<?php echo $id_post[$i]; ?>"></span>
+                                            <? } ?>
+                                        </p>
+                                        <p class="text-right detail">
+                                            <a href="post.php?post=<?echo $id_post[$i]?>"><i class="fa fa-comments"></i> COMMENT</a>
+                                        </p>
+                                        <p class="text-right detail">
+                                            <a href=""><i class="fa fa-share"></i> SHARE</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
+                                <div class="d-flex">
+                                    <?php echo "<img src= $profimage >" ?>
+                                    <input type="text" class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $id_post[$i].'-'.$userId ?>" />
+                                    <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
+                                    <!-- <img class="ml-2" src="asset/images/plus.png"> -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <?php }?>
+
+            </div>
+        </div>
+    </div>
 </div>
-
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/bootstrap/js/popper.js"></script>
-<script src="loginStyle/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/daterangepicker/moment.min.js"></script>
-<script src="loginStyle/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="loginStyle/js/main.js"></script>
-
 </body>
+<script>
+    $(document).ready(function() {
+        var vis = false;
+        $("#dropdownbtn").click(function() {
+            if (vis == true) {
+                $("#online").css({
+                    "visibility": "hidden"
+                })
+                vis = false;
+            } else {
+                $("#online").css({
+                    "visibility": "visible"
+                })
+                vis = true;
+            }
+
+        });
+        $("#group-chats").click(function() {
+            $("#group-chats").css({
+                "border-color": "red"
+            })
+            $("#person-chats").css({
+                "border-color": "black"
+            })
+            $(".group-chat").show(200);
+            $(".person-chat").hide(200);
+            $("#group-pic").attr("src", "asset/images/icons8-user-group-red.png");
+            $("#person-pic").attr("src", "asset/images/icons8-person-30.png");
+        });
+        $("#person-chats").click(function() {
+            $(".person-chat").show(200);
+            $(".group-chat").hide(200);
+            $("#group-pic").attr("src", "asset/images/icons8-user-group-30.png");
+            $("#person-pic").attr("src", "asset/images/icons8-person-30-red.png");
+            $("#group-chats").css({
+                "border-color": "black"
+            })
+            $("#person-chats").css({
+                "border-color": "red"
+            })
+        });
+
+    });
+</script>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // when the user clicks on like
+        $('.like').on('click', function(){
+            var postid = $(this).data('id');
+            $post = $(this);
+
+            $.ajax({
+                url: 'main.php',
+                type: 'post',
+                data: {
+                    'liked': 1,
+                    'postid': postid
+                },
+                success: function(response){
+                    $post.parent().find('span.likes_count').text(response + " likes");
+                    $post.addClass('hide');
+                    $post.siblings().removeClass('hide');
+                }
+            });
+        });
+
+        // when the user clicks on unlike
+        $('.unlike').on('click', function(){
+            var postid = $(this).data('id');
+            $post = $(this);
+
+            $.ajax({
+                url: 'main.php',
+                type: 'post',
+                data: {
+                    'unliked': 1,
+                    'postid': postid
+                },
+                success: function(response){
+                    $post.parent().find('span.likes_count').text(response + " likes");
+                    $post.addClass('hide');
+                    $post.siblings().removeClass('hide');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function(){
+        $('.iscomment').keydown(function(event){
+            var keyCode = (event.keyCode ? event.keyCode : event.which);
+            if (keyCode == 13) {
+                $post = $(this);
+                var res = $(this).data('id').split('-');
+                var postid = res[0];
+                var userId = res[1];
+                var text = $(this).val();
+                $.ajax({
+                    url: 'profile.php?user=' + userId,
+                    type: 'post',
+                    data: {
+                        'iscomment': 1,
+                        'postid': postid,
+                        'text':text
+                    },
+                    success: function(response){
+                        $post.val("");
+                        alert('comment added successfully')
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        // when the user clicks on follow
+        $('.following').on('click', function(){
+            var userid = $(this).data('id');
+            $user = $(this);
+
+            $.ajax({
+                url: 'profile.php?user=' + userid,
+                type: 'post',
+                data: {
+                    'follow': 1,
+                    'userid': userid
+                },
+                success: function(response){
+                    $user.removeClass('btn-primary');
+                    $user.addClass('btn-outline-primary');
+                    // $user.addClass('unfollow');
+                    $user.text("Followed!")
+                }
+            });
+        });
+    });
+
+    $(document).ready(function(){
+        // when the user clicks on unfollow
+        $('.unfollowing').on('click', function(){
+            var userid = $(this).data('id');
+            $user = $(this);
+
+            $.ajax({
+                url: 'profile.php?user=' + userid,
+                type: 'post',
+                data: {
+                    'unfollow': 1,
+                    'userid': userid
+                },
+                success: function(response){
+                    $user.removeClass('btn-primary');
+                    $user.addClass('btn-outline-primary');
+                    // $user.addClass('unfollow');
+                    $user.text("Follow")
+                }
+            });
+        });
+    });
+</script>
 
 </html>
