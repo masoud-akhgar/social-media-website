@@ -28,10 +28,11 @@
 html {
     scroll-behavior: smooth;
     /* background-color: rgb(199, 252, 252); */
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     scrollbar-color: #97d0dfb7 #ffffffb7;
     scrollbar-3dlight-color: #caf3fdb7;
     scroll-behavior: smooth;
+    padding-bottom: 20px;
 }
 
 a {

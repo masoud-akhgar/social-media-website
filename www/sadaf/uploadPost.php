@@ -41,7 +41,7 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
                 $_SESSION["UserName"] = $trec["username"];
 
                 $mysql->Prepare("Insert into sadaf.post (username, userId, text, image, date) values (?, ?, ?, ?, ?)");
-                $res = $mysql->ExecuteStatement(array($_SESSION["UserName"], $_SESSION['UserID'], $_POST['caption'], $targetFilePath, $now));
+                $res = $mysql->ExecuteStatement(array($_SESSION["UserName"], $_SESSION['UserID'], $_POST['caption'], $fileName, $now));
                 if($res){
                     $statusMsg = "The file ".$fileName. " has been uploaded successfully.";
                 }else{

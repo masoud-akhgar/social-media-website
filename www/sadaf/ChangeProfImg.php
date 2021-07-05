@@ -51,7 +51,7 @@ if ($trec = $res->fetch()) {
     $message_array[0] = "This person is not valid.";
 ?>
 
-<body style="background-color:rgb(230, 252, 252) ">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 <div class="container-fluid">
     <? if($message_array) {

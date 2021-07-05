@@ -130,7 +130,7 @@ if(isset($_POST["sendEmail"])){
     <link rel="stylesheet" href="fontStyle.css">
 </head>
 
-<body style="background-color:rgb(230, 252, 252) ;">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 <div class="w-100" style="height:70px;"></div>
 <div class=" d-flex" style="direction:rtl;: left">
@@ -223,7 +223,7 @@ if(isset($_POST["sendEmail"])){
                                 <img src="./postImg/<?echo $rec['image']?>" class="img-fluid w-100 h-100 border-none">
                             </div></a>
                     <?} ?>
-                    <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>
+<!--                    <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>-->
                     <div class="w-100">
                         <div class=" kadr w-100 d-flex post-detail">
 

@@ -37,7 +37,7 @@ $userid = $_SESSION['UserID'];
 
 
 
-<body style="background-color:rgb(230, 252, 252) ;">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 
 <?php include("left_side.php"); ?>
