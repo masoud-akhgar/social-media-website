@@ -156,7 +156,7 @@ while($trec = $res->fetch())
 
         <br>
         <?php echo "<small> ($username) </small>"?>
-        <small class="w-100"><?php echo $bio ?></small>
+        <small class="w-100 text-dark"><?php echo $bio ?></small>
 
     </div>
 
