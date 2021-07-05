@@ -99,7 +99,6 @@ $res = $mysql->ExecuteStatement(array($userId));
 if ($frec = $res->fetch()) {
     $followerNumber = $frec['count(*)'];
 }
-$user = '';
 $mysql->Prepare("select * from sadaf.post where userId=?");
 $res = $mysql->ExecuteStatement(array($userId));
 
@@ -110,27 +109,27 @@ while($trec = $res->fetch())
     array_push($caption_post, $trec['text']);
 
     $mysql->Prepare("select count(*) from sadaf.likes where postId=?");
-    $res = $mysql->ExecuteStatement(array($trec['postId']));
-    if ($frec = $res->fetch()) {
+    $result = $mysql->ExecuteStatement(array($trec['postId']));
+    if ($frec = $result->fetch()) {
         array_push($likes, $frec['count(*)']);
     }
 
     $mysql->Prepare("select count(*) from sadaf.comment where postId=?");
-    $res = $mysql->ExecuteStatement(array($trec['postId']));
-    if ($crec = $res->fetch()) {
+    $result = $mysql->ExecuteStatement(array($trec['postId']));
+    if ($crec = $result->fetch()) {
         array_push($comment_size, $crec['count(*)']);
     }
 
     // liked by user or not
     $mysql->Prepare( "SELECT * FROM sadaf.likes WHERE userId=? AND postId=?");
-    $res = $mysql->ExecuteStatement(array($_SESSION['UserID'], $trec['postId']));
-    array_push($cnt, intval(count($res->fetch())));
+    $result = $mysql->ExecuteStatement(array($_SESSION['UserID'], $trec['postId']));
+    array_push($cnt, intval(count($result->fetch())));
 
 }
 
 ?>
 
-<body style="background-color:rgb(230, 252, 252) ">
+<body style="background: #ebeeef;">
 <?php include("header-top.php")?>
 
 <div class="w-100" style="height:70px;"></div>
@@ -156,7 +155,7 @@ while($trec = $res->fetch())
 
         <br>
         <?php echo "<small> ($username) </small>"?>
-        <small class="w-100"><?php echo $bio ?></small>
+        <small class="w-100 text-dark"><?php echo $bio ?></small>
 
     </div>
 
@@ -206,8 +205,8 @@ while($trec = $res->fetch())
                                 </div>
                             </div>
                         </form>
-                        <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
-                            <div class="d-flex">
+                        <div class="bg-gray comment p-3 w-100 shadow-bottom div-radius-br div-radius-bl">
+                            <div class="d-flex w-100">
                                 <?php echo "<img src= $profimage >" ?>
                                 <input type="text" class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $id_post[$i].'-'.$userId ?>" />
                                 <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
