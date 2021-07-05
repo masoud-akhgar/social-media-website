@@ -206,8 +206,8 @@ while($trec = $res->fetch())
                                 </div>
                             </div>
                         </form>
-                        <div class="bg-gray comment p-3 shadow-bottom div-radius-br div-radius-bl">
-                            <div class="d-flex">
+                        <div class="bg-gray comment p-3 w-100 shadow-bottom div-radius-br div-radius-bl">
+                            <div class="d-flex w-100">
                                 <?php echo "<img src= $profimage >" ?>
                                 <input type="text" class="iscomment comment-holder ml-3 mr-1 col-10" placeholder="Write a Comment and press enter" data-id="<?php echo $id_post[$i].'-'.$userId ?>" />
                                 <i class="fa fa-send mt-2" style="cursor:pointer;font-size:20px"></i>
