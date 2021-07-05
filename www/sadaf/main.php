@@ -223,7 +223,22 @@ if(isset($_POST["sendEmail"])){
                                 <img src="./postImg/<?echo $rec['image']?>" class="img-fluid w-100 h-100 border-none">
                             </div></a>
                     <?} ?>
-<!--                    <p class="d-inline" style="font-size: 14px;">like 3 comment 1</p>-->
+                    <?
+                    $mysql->Prepare("select count(*) from sadaf.likes where postId=?");
+                    $result1 = $mysql->ExecuteStatement(array($rec['postId']));
+                    $likes = 0;
+                    if ($frec = $result1->fetch()) {
+                        $likes = $frec['count(*)'];
+                    }
+
+                    $mysql->Prepare("select count(*) from sadaf.comment where postId=?");
+                    $result2 = $mysql->ExecuteStatement(array($rec['postId']));
+                    $comment_size = 0;
+                    if ($crec = $result2->fetch()) {
+                        $comment_size = $crec['count(*)'];
+                    }
+                    ?>
+                    <p class="d-inline" style="font-size: 14px;"><? echo "like: ".$likes." comment: ".$comment_size ?></p>
                     <div class="w-100">
                         <div class=" kadr w-100 d-flex post-detail">
 

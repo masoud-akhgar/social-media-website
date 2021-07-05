@@ -5,14 +5,14 @@ session_start();
             <div class="pl-5 ml-3 mt-1">
                 <a href="">
                     <div class="d-flex menu">
-                        <img src="./images/profile.png">
+                        <img src="./asset/images/black-circle.png">
                         <p class="ml-2"><a href="profile.php?user=<? echo $_SESSION['UserID']; ?>">See Your Profile</a></p>
 
                     </div>
                 </a>
                 <a href="">
                     <div class="d-flex menu">
-                        <img src="./images/profile.png">
+                        <img src="./asset/images/black-circle.png">
                         <p class="ml-2"><a href="setting.php">Update Your Info</a></p>
 
                     </div>
@@ -20,7 +20,7 @@ session_start();
                 <a href="">
                     <div class="d-flex menu">
 
-                        <img src="./images/profile.png">
+                        <img src="./asset/images/black-circle.png">
                         <p class="ml-2"><a href="ChangeProfImg.php">Change Your Photo People See</a></p>
 
                     </div>
@@ -49,14 +49,14 @@ session_start();
                     <p style="font-weight: bold" class="mt-3">Manage Account</p>
                     <a href="">
                         <div class="d-flex menu">
-                            <img src="./images/profile.png">
+                            <img src="./asset/images/black-circle.png">
                             <p class="ml-2"><a href="login.php">Login</a></p>
 
                         </div>
                     </a>
                     <a href="">
                         <div class="d-flex menu">
-                            <img src="./images/profile.png">
+                            <img src="./asset/images/black-circle.png">
                             <p class="ml-2"><a href="signup.php">Sign up</a></p>
 
                         </div>
@@ -70,7 +70,7 @@ session_start();
 <!--                    </a>-->
                     <a href="">
                         <div class="d-flex menu">
-                            <img src="./images/profile.png">
+                            <img src="./asset/images/black-circle.png">
                             <p class="ml-2"><a href="ChangePassword.php">Change Your Password</a></p>
 
                         </div>
@@ -78,7 +78,7 @@ session_start();
                     <p style="font-weight: bold" class="mt-3">explore</p>
                     <a href="">
                         <div class="d-flex menu">
-                            <img src="./images/profile.png">
+                            <img src="./asset/images/black-circle.png">
                             <p class="ml-2"><a href="">Search People</a></p>
                         </div>
                     </a>
