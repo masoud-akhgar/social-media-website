@@ -53,10 +53,9 @@ if(isset($_POST["submit"]) && !empty($_FILES["image"]["name"])){
     }else{
         $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
     }
-}else{
-    $statusMsg = 'hojjat';
 }
 
 // Display status message
 echo $statusMsg;
+header("Location: main.php");
 ?>

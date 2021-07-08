@@ -91,7 +91,7 @@ if ($trec = $res->fetch()) {
 
             <div class="wrap-input100 validate-input m-b-26">
                 <span class="label-input100">Pro Image:</span>
-                <input type="file" name="image" id="image" placeholder="Image">
+                <input type="file" class="input100" name="image" id="image" placeholder="Image">
                 <span class="focus-input100"></span>
             </div>
             <div class="flex-sb-m w-full p-b-30">
