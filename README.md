@@ -1,7 +1,13 @@
 # social-media
-پروژه شبکه اجتماعی: این پروژه شامل چند بخش هست که در ادامه توضیح داده میشود	 
-صفحه ثبت نام: در این صفحه کاربرانی که عضو نیستند میتوانند با ایمیل و نام کاربری و تعیین کردن رمزعبور معتبر و وارد کردن درست کپچا عضو سایت شوند. در صورت ثبت نام موفق ایمیلی به منظور صحت سنجی به کاربر ارسال میشود
-صفحه لاگ این: کاربرانی که قبلا عضو شدند میتوانند با وارد کردن نام کاربری و رمز عبورشان و کپچا وارد صفحه خودشان بشوند.
-صفحه کاربر: شامل پست های نشر شده کاربر هست و اطلاعاتی مانند بایو، آواتار و اسم هم در این صفحه نمایش داده میشود که قابلیت ویرایش هم دارد.
-صفحه هوم: کاربر با توجه به اینکه چه افرادی را دنبال میکند به صفحه های آنها دسترسی دارد و در صفحه اصلی پست دنبال شوندگان نمایش داده میشود امکان لایک کردن و کامنت گذاشتن وجود دارد و میتوان کامنت بقیه افراد را هم مشاهده کرد و تعداد لایک ها و بازخورد ها نمایش داده میشود.
-در این صفحه قسمت ترند هم وجود دارد و پست هایی که در روز بیشترین لایک را داشتند و مورد استقبال افراد زیادی بوده است نمایش داده میشود و میتوان این پست ها را لایک کرد و یا کامنت گذاشت.
+Social network project:
+This project includes several parts that are explained below
+
+Registration page: On this page, users who are not members can become members of the site with their email and username, specifying a valid password and entering the correct captcha. In case of registration
+The successful name will be sent to the user by email for verification purposes
+
+Login page: Users who have already joined can enter their own page by entering their username, password and captcha.
+
+User page: It contains the user's published posts and information such as bio, avatar and name are displayed on this page, which can be edited.
+
+Home page: according to the people he follows, the user has access to their pages, and the posts of the followers are displayed on the main page, it is possible to like and leave comments, and you can see the comments of other people and the number of likes. And the feedback is displayed.
+On this page, there is also a trend section, and the posts that received the most likes and were welcomed by many people are displayed, and you can like or comment on these posts.
