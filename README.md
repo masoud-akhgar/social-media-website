@@ -1,6 +1,8 @@
 # social-media
+Please see Png files to see the apperance of the website.
+
 Social network project:
-This project includes several parts that are explained below
+This project includes several parts that are explained below. A completed and Twitter-like social-network website.
 
 Registration page: On this page, users who are not members can become members of the site with their email and username, specifying a valid password and entering the correct captcha. In case of registration
 The successful name will be sent to the user by email for verification purposes
