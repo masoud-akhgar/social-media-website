@@ -1,5 +1,5 @@
 # social-media
-Please see Png files to see the apperance of the website.
+Please see Png files to see the performance of the website.
 
 Social network project:
 This project includes several parts that are explained below. A completed and Twitter-like social-network website.
